@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MiVet.Core.DTOs;
 using MiVet.Core.Entities;
+using MiVet.Core.Filters;
 using MiVet.Core.Services;
 
 namespace MiVet.Api.Controllers
@@ -21,9 +22,9 @@ namespace MiVet.Api.Controllers
 
         [Route("pro/")]
         [HttpGet]
-        public async Task<IActionResult> GetRazasProgramador()
+        public async Task<IActionResult> GetRazasProgramador([FromQuery]TbRazaFilters filters)
         {
-            var raza = _services.GetRazas();
+            var raza = _services.GetRazas(filters);
             var razaDTO = _mapper.Map<IEnumerable<TbRazaDTO>>(raza);
             return Ok(razaDTO);
         }
@@ -52,5 +53,13 @@ namespace MiVet.Api.Controllers
             var isvalid = await _services.PutRazas(raza);
             return Ok(isvalid);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteRaza(int Id)
+        {
+            var isvalid = await _services.DeleteRaza(Id);
+            return Ok(isvalid);
+        }
+
     }
 }

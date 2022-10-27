@@ -16,8 +16,7 @@ builder.Services
     .AddNewtonsoftJson(options => { options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; })
     .ConfigureApiBehaviorOptions(options => { /*options.SuppressModelStateInvalidFilter = true; */});
 
-builder.Services.AddDbContext<MiVetDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MiVetDB")));
+builder.Services.AddDbContext<MiVetDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("MiVetDB")));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

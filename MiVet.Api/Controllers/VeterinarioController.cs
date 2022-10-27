@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MiVet.Core.DTOs;
 using MiVet.Core.Entities;
+using MiVet.Core.Filters;
 using MiVet.Core.Services;
 
 namespace MiVet.Api.Controllers
@@ -20,9 +21,9 @@ namespace MiVet.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetVeterinarios()
+        public async Task<IActionResult> GetVeterinarios([FromQuery]TbVeterinarioFilters filters)
         {
-            var veterinarios = _services.GetVeterinarios();
+            var veterinarios = _services.GetVeterinarios(filters);
             var veterinariosDTO = _mapper.Map<IEnumerable<TbVeterinarioDTO>>(veterinarios);
             return Ok(veterinariosDTO);
         }
@@ -40,6 +41,13 @@ namespace MiVet.Api.Controllers
         {
             var veterinario = _mapper.Map<TbVeterinario>(veterinarioDTO);
             var isvalid = await _services.PutVeterinario(veterinario);
+            return Ok(isvalid);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteVacuna(int Id)
+        {
+            var isvalid = await _services.DeleteVeterinario(Id);
             return Ok(isvalid);
         }
 

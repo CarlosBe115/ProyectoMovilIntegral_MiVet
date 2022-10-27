@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MiVet.Core.DTOs;
 using MiVet.Core.Entities;
+using MiVet.Core.Filters;
 using MiVet.Core.Services;
 
 namespace MiVet.Api.Controllers
@@ -20,9 +21,9 @@ namespace MiVet.Api.Controllers
 
         [Route("pro/")]
         [HttpGet]
-        public async Task<IActionResult> GetAnimalesProgramador()
+        public async Task<IActionResult> GetAnimalesProgramador([FromQuery] TbAnimalsFilters filters)
         {
-            var animales = _services.GetAnimales();
+            var animales = _services.GetAnimales(filters);
             var animalesDTO = _mapper.Map<IEnumerable<TbAnimalDTO>>(animales);
             return Ok(animalesDTO);
         }
@@ -36,9 +37,9 @@ namespace MiVet.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostAnimal(TbAnimalDTO animalDTO)
+        public async Task<IActionResult> PostAnimal(List<TbAnimalDTO> animalDTOs)
         {
-            var animal = _mapper.Map<TbAnimal>(animalDTO);
+            var animal = _mapper.Map<List<TbAnimal>>(animalDTOs);
             var isvalid = await _services.PostAnimal(animal);
             return Ok(isvalid);
         }
@@ -48,6 +49,13 @@ namespace MiVet.Api.Controllers
         {
             var animal = _mapper.Map<TbAnimal>(animalDTO);
             var isvalid = await _services.PutAnimal(animal);
+            return Ok(isvalid);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteAnimal(int Id)
+        {
+            var isvalid = await _services.DeleteAnimal(Id);
             return Ok(isvalid);
         }
 

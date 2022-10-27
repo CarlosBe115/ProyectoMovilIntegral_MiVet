@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MiVet.Core.DTOs;
 using MiVet.Core.Entities;
+using MiVet.Core.Filters;
 using MiVet.Core.Services;
 
 namespace MiVet.Api.Controllers
@@ -20,27 +21,35 @@ namespace MiVet.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetVacunas()
+        public async Task<IActionResult> GetVacunas([FromQuery]TbVacunaFilters filters)
         {
-            var raza = _services.GetRazas();
-            var razaDTO = _mapper.Map<IEnumerable<TbRazaDTO>>(raza);
-            return Ok(razaDTO);
+            var vacunas = _services.GetVacunas(filters);
+            var vacunasDTO = _mapper.Map<IEnumerable<TbVacunaDTO>>(vacunas);
+            return Ok(vacunasDTO);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostVacuna(TbRazaDTO razaDTO)
+        public async Task<IActionResult> PostVacuna(TbVacunaDTO vacunaDTO)
         {
-            var raza = _mapper.Map<TbRaza>(razaDTO);
-            var isvalid = await _services.PostRazas(raza);
+            var vacuna = _mapper.Map<TbVacuna>(vacunaDTO);
+            var isvalid = await _services.PostVacuna(vacuna);
             return Ok(isvalid);
         }
 
         [HttpPut]
-        public async Task<IActionResult> PutVacuna(TbRazaDTO razaDTO)
+        public async Task<IActionResult> PutVacuna(TbVacunaDTO tbVacunaDTO)
         {
-            var raza = _mapper.Map<TbRaza>(razaDTO);
-            var isvalid = await _services.PutRazas(raza);
+            var vacuna = _mapper.Map<TbVacuna>(tbVacunaDTO);
+            var isvalid = await _services.PutVacuna(vacuna);
             return Ok(isvalid);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteVacuna(int Id)
+        {
+            var isvalid = await _services.DeleteVacuna(Id);
+            return Ok(isvalid);
+        }
+
     }
 }
