@@ -31,9 +31,9 @@ namespace MiVet.Api.Controllers
 
         [Route("gen/")]
         [HttpGet]
-        public async Task<IActionResult> GetRazasGeneral()
+        public async Task<IActionResult> GetRazasGeneral([FromQuery] TbRazaFilters filters)
         {
-            var raza = _services.GetTbRazaView();
+            var raza = _services.GetTbRazaView(filters);
             return Ok(raza);
         }
 

@@ -8,10 +8,12 @@ namespace MiVet.Core.Entities
         public TbEspecie()
         {
             TbRazas = new HashSet<TbRaza>();
+            TbVacunas = new HashSet<TbVacuna>();
         }
 
         public string Nombre { get; set; } = null!;
 
         public virtual ICollection<TbRaza> TbRazas { get; set; }
+        public virtual ICollection<TbVacuna> TbVacunas { get; set; }
     }
 }

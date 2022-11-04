@@ -7,6 +7,7 @@ namespace MiVet.Core.Interfaces
         IRepository<TbAnimal> AnimalRepository { get; }
         IRepository<TbEspecie> EspecieRepository { get; }
         IRepository<TbEstado> EstadoRepository { get; }
+        IRepository<TbHistorialMedico> HistorialMedicoRepository { get; }
         IRepository<TbPadre> PadreRepository { get; }
         IRepository<TbPata> PataRepository { get; }
         IRepository<TbRaza> RazaRepository { get; }

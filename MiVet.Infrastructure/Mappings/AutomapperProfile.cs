@@ -14,6 +14,9 @@ namespace MiVet.Infrastructure.Mappings
             CreateMap<TbEspecie, TbEspecieDTO>();
             CreateMap<TbEspecieDTO, TbEspecie>();
 
+            CreateMap<TbHistorialMedico, TbHistorialMedicoDTO>();
+            CreateMap<TbHistorialMedicoDTO, TbHistorialMedico>();
+
             CreateMap<TbEstado, TbEstadoDTO>();
             CreateMap<TbEstadoDTO, TbEstado>();
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace MiVet.Core.Entities
+﻿namespace MiVet.Core.Entities
 {
     public partial class TbEstado : BaseEntity
     {

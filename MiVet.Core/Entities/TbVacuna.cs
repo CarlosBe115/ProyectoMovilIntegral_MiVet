@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace MiVet.Core.Entities
+﻿namespace MiVet.Core.Entities
 {
     public partial class TbVacuna : BaseEntity
     {
@@ -10,13 +7,15 @@ namespace MiVet.Core.Entities
             TbVacunaAnimals = new HashSet<TbVacunaAnimal>();
         }
 
+        public int Especie { get; set; }
         public string Nombre { get; set; } = null!;
         public string? Tipo { get; set; }
         public string? Via { get; set; }
-        public string Momento { get; set; } = null!;
+        public int Momento { get; set; }
         public bool NecesitaRefuerzo { get; set; }
-        public string? PeridoRefuerzo { get; set; }
+        public int? Refuerzo { get; set; }
 
+        public virtual TbEspecie EspecieNavigation { get; set; } = null!;
         public virtual ICollection<TbVacunaAnimal> TbVacunaAnimals { get; set; }
     }
 }

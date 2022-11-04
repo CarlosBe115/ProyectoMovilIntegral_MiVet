@@ -9,7 +9,7 @@ namespace MiVet.Core.Services
 
         #region Animales
 
-        IEnumerable<TbAnimalViews> GetAnimalesView();
+        IEnumerable<TbAnimalViews> GetAnimalesView(TbAnimalsFilters filters);
         IEnumerable<TbAnimal> GetAnimales(TbAnimalsFilters filters);
         Task<bool> PostAnimal(List<TbAnimal> data);
         Task<bool> PutAnimal(TbAnimal data);
@@ -26,9 +26,19 @@ namespace MiVet.Core.Services
 
         #endregion
 
+        #region Historial Medico
+
+        IEnumerable<TbHistorialMedico> GetHistorialMedico(TbHistorialMedicoFilters filters);
+        IEnumerable<TbHistorialMedicoViews> GetHistorialMedicoView(TbHistorialMedicoFilters filters);
+        Task<bool> PostHistorialMedico(TbHistorialMedico data);
+        Task<bool> PutHistorialMedico(TbHistorialMedico data);
+        Task<bool> DeleteHistorialMedico(int Id);
+
+        #endregion
+
         #region Raza
 
-        IEnumerable<TbRazaViews> GetTbRazaView();
+        IEnumerable<TbRazaViews> GetTbRazaView(TbRazaFilters filters);
         IEnumerable<TbRaza> GetRazas(TbRazaFilters filters);
         Task<bool> PostRazas(TbRaza data);
         Task<bool> PutRazas(TbRaza data);

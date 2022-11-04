@@ -4,7 +4,6 @@ using MiVet.Core.Filters;
 using MiVet.Core.Interfaces;
 using MiVet.Core.Services;
 using MiVet.Core.Views;
-using System.IO;
 
 namespace MiVet.Infrastructure.Services
 {
@@ -40,13 +39,30 @@ namespace MiVet.Infrastructure.Services
             return animales;
         }
 
-        public IEnumerable<TbAnimalViews> GetAnimalesView()
+        public IEnumerable<TbAnimalViews> GetAnimalesView(TbAnimalsFilters filters)
         {
-            var animales = _unitOfWork.AnimalRepository.GetAll().ToList();
-            var raza = GetTbRazaView().ToList();
+            TbRazaFilters razaFilters = new TbRazaFilters();
+
+            var animales = _unitOfWork.AnimalRepository.GetAll();
+            var raza = GetTbRazaView(razaFilters).ToList();
             var estado = _unitOfWork.EstadoRepository.GetAll().ToList();
             var padre = _unitOfWork.PadreRepository.GetAll().ToList();
             var pata = _unitOfWork.PataRepository.GetAll().ToList();
+
+            if (filters.Id != null)
+                animales = animales.Where(a => a.Id == filters.Id);
+            if (filters.Raza != null)
+                animales = animales.Where(a => a.Raza == filters.Raza);
+            if (filters.Apodo != null)
+                animales = animales.Where(a => a.Apodo == filters.Apodo);
+            if (filters.Nacimiento != null)
+                animales = animales.Where(a => a.Nacimiento == filters.Nacimiento);
+            if (filters.Peso != null)
+                animales = animales.Where(a => a.Peso == filters.Peso);
+            if (filters.Genero != null)
+                animales = animales.Where(a => a.Genero == filters.Genero);
+            if (filters.Estado != null)
+                animales = animales.Where(a => a.Estado == filters.Estado);
 
             var result = (from a in animales
                           join r in raza on a.Raza equals r.Id
@@ -160,6 +176,77 @@ namespace MiVet.Infrastructure.Services
 
         #endregion
 
+        #region Historial Medico
+
+
+        public IEnumerable<TbHistorialMedico> GetHistorialMedico(TbHistorialMedicoFilters filters)
+        {
+            var historial = _unitOfWork.HistorialMedicoRepository.GetAll();
+
+            if (filters.Id != null)
+                historial = historial.Where(a => a.Id == filters.Id);
+            if (filters.VacunaAnimal != null)
+                historial = historial.Where(a => a.VacunaAnimal == filters.VacunaAnimal);
+
+            return historial;
+        }
+
+        public IEnumerable<TbHistorialMedicoViews> GetHistorialMedicoView(TbHistorialMedicoFilters filters)
+        {
+            TbVacunaAnimalFilter filter = new TbVacunaAnimalFilter();
+
+            var historial = _unitOfWork.HistorialMedicoRepository.GetAll();
+            var vacuna = GetVacunaAnimals(filter).ToList();
+
+            if (filters.Id != null)
+                historial = historial.Where(a => a.Id == filters.Id);
+            if (filters.VacunaAnimal != null)
+                historial = historial.Where(a => a.VacunaAnimal == filters.VacunaAnimal);
+
+            var historialView = (from h in historial
+                                 select new TbHistorialMedicoViews
+                                 {
+                                     Id = h.Id,
+                                     Consulta = (from v in vacuna select new TbVacunaAnimalDTO
+                                               {
+                                                   Id = v.Id,
+                                                   Vacuna = v.Vacuna,
+                                                   Animal = v.Animal,
+                                                   Veterinario = v.Veterinario,
+                                                   Evidencia = v.Evidencia,
+                                                   FechaAplicacion = v.FechaAplicacion,
+                                                   Listo = v.Listo
+                                               }).FirstOrDefault(x => x.Id == h.VacunaAnimal),
+                                 }).ToList();
+
+
+            return historialView;
+        }
+
+
+        public async Task<bool> PostHistorialMedico(TbHistorialMedico historialMedico)
+        {
+            await _unitOfWork.HistorialMedicoRepository.Add(historialMedico);
+            _unitOfWork.SaveChanges();
+            return true;
+        }
+
+        public async Task<bool> PutHistorialMedico(TbHistorialMedico historialMedico)
+        {
+            _unitOfWork.HistorialMedicoRepository.Update(historialMedico);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteHistorialMedico(int Id)
+        {
+            await _unitOfWork.HistorialMedicoRepository.Delete(Id);
+            _unitOfWork.SaveChanges();
+            return true;
+        }
+
+        #endregion
+
         #region Patas
 
         public IEnumerable<TbPata> GetPatas(TbPataFilters filters)
@@ -168,18 +255,14 @@ namespace MiVet.Infrastructure.Services
 
             if (filters.Id != null)
                 patas = patas.Where(a => a.Id == filters.Id);
-            if (filters.Rderecha != null)
-                patas = patas.Where(a => a.Rderecha == filters.Rderecha);
-            if (filters.Rcentro != null)
-                patas = patas.Where(a => a.Rcentro == filters.Rcentro);
-            if (filters.Rizquierda != null)
-                patas = patas.Where(a => a.Rizquierda == filters.Rizquierda);
-            if (filters.Lderecha != null)
-                patas = patas.Where(a => a.Lderecha == filters.Lderecha);
-            if (filters.Lcentro != null)
-                patas = patas.Where(a => a.Lcentro == filters.Lcentro);
-            if (filters.Lizquierda != null)
-                patas = patas.Where(a => a.Lizquierda == filters.Lizquierda);
+
+            if(filters.Rderecha != null && filters.Rcentro != null && filters.Rizquierda != null &&
+                filters.Lderecha != null && filters.Lcentro != null && filters.Lizquierda != null)
+            {
+                patas = patas.Where(x => 
+                    x.Rderecha == filters.Rderecha && x.Rcentro == filters.Rcentro && x.Rizquierda == filters.Rizquierda &&
+                    x.Lderecha == filters.Lderecha && x.Lcentro == filters.Lcentro && x.Lizquierda == filters.Lizquierda);
+            }
 
             return patas;
         }
@@ -256,13 +339,19 @@ namespace MiVet.Infrastructure.Services
             return raza;
         }
 
-        public IEnumerable<TbRazaViews> GetTbRazaView()
+        public IEnumerable<TbRazaViews> GetTbRazaView(TbRazaFilters filters)
         {
-            var raza = _unitOfWork.RazaRepository.GetAll().ToList();
+            var raza = _unitOfWork.RazaRepository.GetAll();
             var especie = _unitOfWork.EspecieRepository.GetAll().ToList();
 
-            var result = (from r in raza join e in especie
-                          on r.Especie equals e.Id
+            if (filters.Id != null)
+                raza = raza.Where(a => a.Id == filters.Id);
+            if (filters.Especie != null)
+                raza = raza.Where(a => a.Especie == filters.Especie);
+            if (filters.Nombre != null)
+                raza = raza.Where(a => a.Nombre == filters.Nombre);
+
+            var result = (from r in raza join e in especie on r.Especie equals e.Id
                           select new TbRazaViews
                           {
                               Id = r.Id,
@@ -304,6 +393,8 @@ namespace MiVet.Infrastructure.Services
 
             if (filters.Id != null)
                 vacunas = vacunas.Where(a => a.Id == filters.Id);
+            if (filters.Especie != null)
+                vacunas = vacunas.Where(a => a.Especie == filters.Especie);
             if (filters.Nombre != null)
                 vacunas = vacunas.Where(a => a.Nombre == filters.Nombre);
             if (filters.Tipo != null)
@@ -314,8 +405,8 @@ namespace MiVet.Infrastructure.Services
                 vacunas = vacunas.Where(a => a.Momento == filters.Momento);
             if (filters.NecesitaRefuerzo != null)
                 vacunas = vacunas.Where(a => a.NecesitaRefuerzo == filters.NecesitaRefuerzo);
-            if (filters.PeridoRefuerzo != null)
-                vacunas = vacunas.Where(a => a.PeridoRefuerzo == filters.PeridoRefuerzo);
+            if (filters.Refuerzo != null)
+                vacunas = vacunas.Where(a => a.Refuerzo == filters.Refuerzo);
 
             return vacunas;
         }
@@ -355,8 +446,10 @@ namespace MiVet.Infrastructure.Services
                 vacunaAnimal = vacunaAnimal.Where(x => x.Animal == filter.Animal);
             if (filter.Vacuna != null)
                 vacunaAnimal = vacunaAnimal.Where(x => x.Vacuna == filter.Vacuna);
-            if (filter.Fecha != null)
-                vacunaAnimal = vacunaAnimal.Where(x => x.Fecha == filter.Fecha);
+            if (filter.Veterinario != null)
+                vacunaAnimal = vacunaAnimal.Where(x => x.Veterinario == filter.Veterinario);
+            if (filter.FechaAplicacion != null)
+                vacunaAnimal = vacunaAnimal.Where(x => x.FechaAplicacion == filter.FechaAplicacion);
             if (filter.Listo != null)
                 vacunaAnimal = vacunaAnimal.Where(x => x.Listo == filter.Listo);
 
@@ -371,7 +464,7 @@ namespace MiVet.Infrastructure.Services
                               Id = va.Id,
                               Animal = $"{a.Id}({a.Apodo})",
                               Vacuna = v.Nombre,
-                              Fecha = va.Fecha,
+                              Fecha = va.FechaAplicacion,
                               Listo = va.Listo
                           });
 
@@ -388,8 +481,8 @@ namespace MiVet.Infrastructure.Services
                 vacunaAnimal = vacunaAnimal.Where(x => x.Animal == filter.Animal);
             if (filter.Vacuna != null)
                 vacunaAnimal = vacunaAnimal.Where(x => x.Vacuna == filter.Vacuna);
-            if (filter.Fecha != null)
-                vacunaAnimal = vacunaAnimal.Where(x => x.Fecha == filter.Fecha);
+            if (filter.FechaAplicacion != null)
+                vacunaAnimal = vacunaAnimal.Where(x => x.FechaAplicacion == filter.FechaAplicacion);
             if (filter.Listo != null)
                 vacunaAnimal = vacunaAnimal.Where(x => x.Listo == filter.Listo);
 
@@ -459,7 +552,8 @@ namespace MiVet.Infrastructure.Services
             _unitOfWork.SaveChanges();
             return true;
         }
-        
+
+
         #endregion
 
     }

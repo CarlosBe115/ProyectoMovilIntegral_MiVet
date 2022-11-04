@@ -12,6 +12,7 @@ namespace MiVet.Infrastructure.Data
         public virtual DbSet<TbAnimal> TbAnimals { get; set; } = null!;
         public virtual DbSet<TbEspecie> TbEspecies { get; set; } = null!;
         public virtual DbSet<TbEstado> TbEstados { get; set; } = null!;
+        public virtual DbSet<TbHistorialMedico> TbHistorialMedicos { get; set; } = null!;
         public virtual DbSet<TbPadre> TbPadres { get; set; } = null!;
         public virtual DbSet<TbPata> TbPatas { get; set; } = null!;
         public virtual DbSet<TbRaza> TbRazas { get; set; } = null!;
@@ -64,6 +65,17 @@ namespace MiVet.Infrastructure.Data
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TbHistorialMedico>(entity =>
+            {
+                entity.ToTable("tbHistorialMedico");
+
+                entity.HasOne(d => d.VacunaAnimalNavigation)
+                    .WithMany(p => p.TbHistorialMedicos)
+                    .HasForeignKey(d => d.VacunaAnimal)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tbHistorialMedico_VacunaAnimal");
             });
 
             modelBuilder.Entity<TbPadre>(entity =>
@@ -127,16 +139,8 @@ namespace MiVet.Infrastructure.Data
             {
                 entity.ToTable("tbVacuna");
 
-                entity.Property(e => e.Momento)
-                    .HasMaxLength(75)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Nombre)
                     .HasMaxLength(75)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PeridoRefuerzo)
-                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Tipo)
@@ -146,13 +150,23 @@ namespace MiVet.Infrastructure.Data
                 entity.Property(e => e.Via)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.EspecieNavigation)
+                    .WithMany(p => p.TbVacunas)
+                    .HasForeignKey(d => d.Especie)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tbVacuna_tbEspecie");
             });
 
             modelBuilder.Entity<TbVacunaAnimal>(entity =>
             {
                 entity.ToTable("tbVacunaAnimal");
 
-                entity.Property(e => e.Fecha).HasColumnType("datetime");
+                entity.Property(e => e.Evidencia)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FechaAplicacion).HasColumnType("datetime");
 
                 entity.HasOne(d => d.AnimalNavigation)
                     .WithMany(p => p.TbVacunaAnimals)
@@ -165,6 +179,12 @@ namespace MiVet.Infrastructure.Data
                     .HasForeignKey(d => d.Vacuna)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_tbVacunaAnimal_tbVacuna");
+
+                entity.HasOne(d => d.VeterinarioNavigation)
+                    .WithMany(p => p.TbVacunaAnimals)
+                    .HasForeignKey(d => d.Veterinario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_tbVacunaAnimal_tbVeterinario");
             });
 
             modelBuilder.Entity<TbVeterinario>(entity =>

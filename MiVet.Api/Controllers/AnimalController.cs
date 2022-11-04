@@ -30,9 +30,9 @@ namespace MiVet.Api.Controllers
 
         [Route("gen/")]
         [HttpGet]
-        public async Task<IActionResult> GetAnimalesGeneral()
+        public async Task<IActionResult> GetAnimalesGeneral([FromQuery] TbAnimalsFilters filters)
         {
-            var animales = _services.GetAnimalesView();
+            var animales = _services.GetAnimalesView(filters);
             return Ok(animales);
         }
 
