@@ -16,7 +16,7 @@ class PaginaList extends StatefulWidget {
 
 class _formcaballosState extends State<PaginaList> {
   final _url = Uri.parse(
-      'https://63635a5666f75177ea424b0f.mockapi.io/Animales' /*'https://10.0.2.2:7169/api/animal/gen'*/); //'https://jsonplaceholder.typicode.com/todos/1'
+      'https://www.mivetapi.somee.com/api/animal/pro' /*'https://10.0.2.2:7169/api/animal/gen'*/); //'https://jsonplaceholder.typicode.com/todos/1'
   late Future<List<Animales>> animales;
   @override
   Widget build(BuildContext context) {
