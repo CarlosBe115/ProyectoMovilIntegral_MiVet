@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Api\\MiVet.Api.csproj": {}
+    "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Api\\MiVet.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Api\\MiVet.Api.csproj": {
+    "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Api\\MiVet.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Api\\MiVet.Api.csproj",
+        "projectUniqueName": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Api\\MiVet.Api.csproj",
         "projectName": "MiVet.Api",
-        "projectPath": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Api\\MiVet.Api.csproj",
-        "packagesPath": "C:\\Users\\Luis A Martin Dzul\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Api\\obj\\",
+        "projectPath": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Api\\MiVet.Api.csproj",
+        "packagesPath": "C:\\Users\\carna\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Api\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Luis A Martin Dzul\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\carna\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,11 +32,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Core\\MiVet.Core.csproj": {
-                "projectPath": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Core\\MiVet.Core.csproj"
+              "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Core\\MiVet.Core.csproj": {
+                "projectPath": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Core\\MiVet.Core.csproj"
               },
-              "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Infrastructure\\MiVet.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Infrastructure\\MiVet.Infrastructure.csproj"
+              "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Infrastructure\\MiVet.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Infrastructure\\MiVet.Infrastructure.csproj"
               }
             }
           }
@@ -64,8 +68,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -77,21 +80,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.305\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Core\\MiVet.Core.csproj": {
+    "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Core\\MiVet.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Core\\MiVet.Core.csproj",
+        "projectUniqueName": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Core\\MiVet.Core.csproj",
         "projectName": "MiVet.Core",
-        "projectPath": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Core\\MiVet.Core.csproj",
-        "packagesPath": "C:\\Users\\Luis A Martin Dzul\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Core\\obj\\",
+        "projectPath": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Core\\MiVet.Core.csproj",
+        "packagesPath": "C:\\Users\\carna\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Luis A Martin Dzul\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\carna\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -122,8 +129,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -132,21 +138,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.305\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Infrastructure\\MiVet.Infrastructure.csproj": {
+    "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Infrastructure\\MiVet.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Infrastructure\\MiVet.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Infrastructure\\MiVet.Infrastructure.csproj",
         "projectName": "MiVet.Infrastructure",
-        "projectPath": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Infrastructure\\MiVet.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Luis A Martin Dzul\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Infrastructure\\MiVet.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\carna\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Luis A Martin Dzul\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\carna\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -160,8 +170,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Core\\MiVet.Core.csproj": {
-                "projectPath": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Core\\MiVet.Core.csproj"
+              "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Core\\MiVet.Core.csproj": {
+                "projectPath": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Core\\MiVet.Core.csproj"
               }
             }
           }
@@ -201,8 +211,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -211,7 +220,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.305\\RuntimeIdentifierGraph.json"
         }
       }
     }
