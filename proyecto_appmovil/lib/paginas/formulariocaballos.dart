@@ -1,4 +1,27 @@
-import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+class formulariocaballos extends StatelessWidget {
+  const formulariocaballos({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Registro de Caballos'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Regresar'),
+          onPressed: () {
+            //jasjajsas
+          },
+        ),
+      ),
+    );
+  }
+}/*import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -80,4 +103,4 @@ class _formcaballosState extends State<formulariocaballos> {
       throw Exception("Fallo la conexión");
     }
   }
-}
+}*/
