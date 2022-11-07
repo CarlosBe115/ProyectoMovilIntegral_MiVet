@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_appmovil/models/animales.dart';
 import 'dart:convert';
-import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:proyecto_appmovil/models/animales.dart';
 import 'package:http/http.dart' as http;
 
 class PaginaList extends StatefulWidget {
@@ -14,23 +10,34 @@ class PaginaList extends StatefulWidget {
   State<PaginaList> createState() => _formcaballosState();
 }
 
+// ignore: camel_case_types
 class _formcaballosState extends State<PaginaList> {
   final _url = Uri.parse(
-      'https://www.mivetapi.somee.com/api/animal/pro' /*'https://10.0.2.2:7169/api/animal/gen'*/); //'https://jsonplaceholder.typicode.com/todos/1'
+      'https://www.mivetapi.somee.com/api/animal/gen/?id=100000' /*'https://10.0.2.2:7169/api/animal/gen'*/); //'https://jsonplaceholder.typicode.com/todos/1'
   late Future<List<Animales>> animales;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registro de Caballos'),
+        title: const Text('Registro de Animales'),
       ),
-      body: FutureBuilder(
+      body: FutureBuilder<List<Animales>>(
         future: animales,
         builder: (context, snap) {
           if (snap.hasData) {
-            return const Center(
-              child: Text("Datos listos"),
-            );
+            return ListView.builder(
+                itemCount: snap.data!.length,
+                itemBuilder: (context, i) {
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(snap.data![i].apodo),
+                        subtitle: Text(snap.data![i].especie!.especie),
+                      ),
+                      const Divider()
+                    ],
+                  );
+                });
           }
           if (snap.hasError) {
             return const Center(
@@ -59,26 +66,15 @@ class _formcaballosState extends State<PaginaList> {
 
   //late Future<List<Animales>> _listadoAnimales;
   Future<List<Animales>> _getAnimales() async {
-    //var uri = Uri.parse(_url);
-
     final response = await http.get(_url);
+    final jsonData = List.from(jsonDecode(response.body));
 
-    //List<Animales> animales = [];
-
-    if (response.statusCode == 200) {
-      String body = utf8.decode(response.bodyBytes);
-
-      final jsonData = List.from(jsonDecode(body));
-      List<Animales> animal = [];
-      jsonData.forEach((element) {
-        final Animales animales = Animales.fromJson(element);
-      });
-      print(jsonData);
-      return animal;
-      //for (var item in jsonData["data"]) {
-      //  animales.add(item["apodo"]);
-    } else {
-      throw Exception("Fallo la conexión");
-    }
+    List<Animales> animales = [];
+    jsonData.forEach((element) {
+      final Animales animals = Animales.fromJson(element);
+      ;
+      animales.add(animals);
+    });
+    return animales;
   }
 }

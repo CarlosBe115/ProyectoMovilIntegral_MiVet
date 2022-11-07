@@ -8,50 +8,49 @@ String genToJson(List<Animales> data) =>
 
 class Animales {
   int id;
-  //Especie especie;
+  Especie? especie;
   String apodo;
   DateTime nacimiento;
   String peso;
-  bool genero;
-  int estado;
-  //Padres padre;
-  //Pata pata;
+  String genero;
+  String estado;
+  Padres? padre;
+  Pata? pata;
 
   factory Animales.fromJson(Map<String, dynamic> json) => Animales(
         id: json["id"],
-        //especie: Especie.fromJson(json["especie"]),
+        especie: Especie.fromJson(json["especie"]),
         apodo: json["apodo"],
         nacimiento: DateTime.parse(json["nacimiento"]),
         peso: json["peso"],
         genero: json["genero"],
         estado: json["estado"],
-        //padre: Padres.fromJson(json["padre"]),
-        //pata: Pata.fromJson(json["pata"]),
+        padre: Padres.fromJson(json["padre"]),
+        pata: Pata.fromJson(json["pata"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        //"especie": especie.toJson(),
+        "especie": especie?.toJson(),
         "apodo": apodo,
         "nacimiento": nacimiento.toIso8601String(),
         "peso": peso,
         "genero": genero,
         "estado": estado,
-        //"padre": padre.toJson(),
-        //"pata": pata.toJson(),
+        "padre": padre?.toJson(),
+        "pata": pata?.toJson(),
       };
 
-  Animales({
-    required this.id,
-    //required this.especie,
-    required this.apodo,
-    required this.nacimiento,
-    required this.peso,
-    required this.genero,
-    required this.estado,
-    //required this.padre,
-    //required this.pata
-  });
+  Animales(
+      {required this.id,
+      required this.especie,
+      required this.apodo,
+      required this.nacimiento,
+      required this.peso,
+      required this.genero,
+      required this.estado,
+      required this.padre,
+      required this.pata});
 
   /*factory Animales.fromJson(Map json) {
     return Animales(
@@ -67,7 +66,7 @@ class Animales {
   }*/
 }
 
-/*class Especie {
+class Especie {
   int id;
   String raza;
   int idEspecie;
@@ -92,9 +91,9 @@ class Animales {
         "idEspecie": idEspecie,
         "especie": especie,
       };
-}*/
+}
 
-/*class Padres {
+class Padres {
   int id;
   int madre;
   int padre;
@@ -116,9 +115,9 @@ class Animales {
         "madre": madre,
         "padre": padre,
       };
-}*/
+}
 
- /*class Pata {
+class Pata {
   int id;
   bool rizquierda;
   bool rcentro;
@@ -127,7 +126,7 @@ class Animales {
   bool lcentro;
   bool lderecha;
 
- Pata({
+  Pata({
     required this.id,
     required this.rizquierda,
     required this.rcentro,
@@ -156,5 +155,4 @@ class Animales {
         "lcentro": lcentro,
         "lderecha": lderecha,
       };
-}*/
-
+}
