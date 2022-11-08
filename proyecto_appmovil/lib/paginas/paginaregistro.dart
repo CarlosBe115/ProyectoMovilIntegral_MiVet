@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_appmovil/paginas/formularioborregos.dart';
 import 'package:proyecto_appmovil/paginas/formulariocaballos.dart';
 import 'package:proyecto_appmovil/paginas/formulariogallo.dart';
-import 'package:proyecto_appmovil/paginas/paginalist.dart';
 
 class PaginaRegistro extends StatelessWidget {
   const PaginaRegistro({Key? key}) : super(key: key);
@@ -13,35 +12,37 @@ class PaginaRegistro extends StatelessWidget {
         child: Center(
       child: Column(
         children: <Widget>[
-          Padding(padding: EdgeInsets.all(16.0)),
+          const Padding(padding: EdgeInsets.all(16.0)),
           ElevatedButton(
-            child: Text('Registrar Caballo'),
+            child: const Text('Lista de Caballos Registrados'),
             onPressed: () {
               //jasjajsas
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => formulariocaballos()));
+                      builder: (context) => const formulariocaballos()));
             },
           ),
-          Padding(padding: EdgeInsets.all(16.0)),
+          const Padding(padding: EdgeInsets.all(16.0)),
           ElevatedButton(
-            child: Text('Lista de Gallos Registrados'),
-            onPressed: () {
-              //jasjajsas
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => formulariogallo()));
-            },
-          ),
-          Padding(padding: EdgeInsets.all(16.0)),
-          ElevatedButton(
-            child: Text('Registrar Borrego'),
+            child: const Text('Lista de Gallos Registrados'),
             onPressed: () {
               //jasjajsas
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => formularioborregos()));
+                      builder: (context) => const formulariogallo()));
+            },
+          ),
+          const Padding(padding: EdgeInsets.all(16.0)),
+          ElevatedButton(
+            child: const Text('Lista de Borregos Registrados'),
+            onPressed: () {
+              //jasjajsas
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const formularioborregos()));
             },
           ),
         ],

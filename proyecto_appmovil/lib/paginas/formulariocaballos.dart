@@ -67,7 +67,7 @@ class _listState extends State<formulariocaballos> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Agregar Gallo"),
+            title: const Text("Agregar  Caballo"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: const [
