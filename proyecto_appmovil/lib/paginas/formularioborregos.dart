@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_appmovil/models/animales.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:proyecto_appmovil/models/animalespost.dart';
 
 class formularioborregos extends StatefulWidget {
   const formularioborregos({Key? key}) : super(key: key);
@@ -15,8 +16,8 @@ class _listState extends State<formularioborregos> {
   final _url = Uri.parse('https://mivetapi.somee.com/api/animal/gen/?raza=102');
   final _url2 = Uri.parse(
       'https://mivetapi.somee.com/api/animal'); /*'https://10.0.2.2:7169/api/animal/gen'*/ //'https://jsonplaceholder.typicode.com/todos/1'
-  final headers = {"content-type": "application/json;charset=UTF-8"};
   late Future<List<Animales>> animales;
+  late Future<List<AnimalesPost>> animalespost;
   String raza = "";
   final apodo = TextEditingController();
   final nacimiento = TextEditingController();
@@ -188,14 +189,13 @@ class _listState extends State<formularioborregos> {
     List<Animales> animales = [];
     jsonData.forEach((element) {
       final Animales animals = Animales.fromJson(element);
-      ;
       animales.add(animals);
     });
     return animales;
   }
 
   void _addAnimales() async {
-    final animal = {
+    final animalespost = {
       "raza": int.parse(raza),
       "apodo": apodo.text,
       "nacimiento": nacimiento.text,
@@ -204,7 +204,9 @@ class _listState extends State<formularioborregos> {
       "estado": int.parse(estado)
     };
 
-    await http.post(_url2, headers: headers, body: jsonEncode(animal));
+    final headers = {"content-type": "application/json;charset=UTF-8"};
+    var resul = await http.post(_url2,
+        headers: headers, body: jsonEncode(animalespost));
     apodo.clear();
     nacimiento.clear();
     peso.clear();
