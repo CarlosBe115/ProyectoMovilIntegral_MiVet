@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   List<Widget> _paginas = [
     PaginaRegistro(),
     PaginaHome(),
-    PaginaList(),
+    //PaginaList(),
   ];
 
   @override
@@ -44,10 +44,9 @@ class _MyAppState extends State<MyApp> {
           currentIndex: _paginaActual,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.app_registration), label: "Registro"),
+                icon: Icon(Icons.list_outlined), label: "Lista"),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.list_outlined), label: "Lista")
+            //BottomNavigationBarItem(icon: Icon(Icons.list_outlined), label: "Lista")
           ],
         ),
       ),
