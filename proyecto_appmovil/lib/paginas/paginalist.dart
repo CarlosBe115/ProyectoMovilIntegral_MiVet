@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:proyecto_appmovil/models/animales.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -7,13 +7,13 @@ class PaginaList extends StatefulWidget {
   const PaginaList({Key? key}) : super(key: key);
 
   @override
-  State<PaginaList> createState() => _formcaballosState();
+  State<PaginaList> createState() => _listState();
 }
 
 // ignore: camel_case_types
-class _formcaballosState extends State<PaginaList> {
+class _listState extends State<PaginaList> {
   final _url = Uri.parse(
-      'https://www.mivetapi.somee.com/api/animal/gen/?id=100000' /*'https://10.0.2.2:7169/api/animal/gen'*/); //'https://jsonplaceholder.typicode.com/todos/1'
+      'https://mivetapi.somee.com/api/animal/gen/?raza=100' /*'https://10.0.2.2:7169/api/animal/gen'*/); //'https://jsonplaceholder.typicode.com/todos/1'
   late Future<List<Animales>> animales;
   @override
   Widget build(BuildContext context) {
@@ -53,10 +53,36 @@ class _formcaballosState extends State<PaginaList> {
           },
         ),*/
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: showForm,
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
-  //final String _url = "https://localhost:7169/api/animal/gen";
+  void showForm() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Agregar Gallo"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Cancelar"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Guardar"),
+              )
+            ],
+          );
+        });
+  }
 
   @override
   void initState() {
@@ -64,7 +90,6 @@ class _formcaballosState extends State<PaginaList> {
     animales = _getAnimales();
   }
 
-  //late Future<List<Animales>> _listadoAnimales;
   Future<List<Animales>> _getAnimales() async {
     final response = await http.get(_url);
     final jsonData = List.from(jsonDecode(response.body));
@@ -77,4 +102,4 @@ class _formcaballosState extends State<PaginaList> {
     });
     return animales;
   }
-}
+}*/

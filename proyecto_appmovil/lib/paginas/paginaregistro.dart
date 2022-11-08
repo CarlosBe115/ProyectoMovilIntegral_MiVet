@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_appmovil/paginas/formularioborregos.dart';
 import 'package:proyecto_appmovil/paginas/formulariocaballos.dart';
 import 'package:proyecto_appmovil/paginas/formulariogallo.dart';
+import 'package:proyecto_appmovil/paginas/paginalist.dart';
 
 class PaginaRegistro extends StatelessWidget {
   const PaginaRegistro({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class PaginaRegistro extends StatelessWidget {
           ),
           Padding(padding: EdgeInsets.all(16.0)),
           ElevatedButton(
-            child: Text('Registrar Gallo'),
+            child: Text('Lista de Gallos Registrados'),
             onPressed: () {
               //jasjajsas
               Navigator.push(context,

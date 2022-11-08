@@ -1,58 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
-class formulariocaballos extends StatelessWidget {
-  const formulariocaballos({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Registro de Caballos'),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          child: Text('Regresar'),
-          onPressed: () {
-            //jasjajsas
-          },
-        ),
-      ),
-    );
-  }
-}/*import 'dart:convert';
-
-import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:proyecto_appmovil/models/animales.dart';
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class formulariocaballos extends StatefulWidget {
   const formulariocaballos({Key? key}) : super(key: key);
 
   @override
-  State<formulariocaballos> createState() => _formcaballosState();
+  State<formulariocaballos> createState() => _listState();
 }
 
-class _formcaballosState extends State<formulariocaballos> {
+// ignore: camel_case_types
+class _listState extends State<formulariocaballos> {
   final _url = Uri.parse(
-      'https://63635a5666f75177ea424b0f.mockapi.io/Animales' /*'https://10.0.2.2:7169/api/animal/gen'*/); //'https://jsonplaceholder.typicode.com/todos/1'
+      'https://mivetapi.somee.com/api/animal/gen/?raza=101' /*'https://10.0.2.2:7169/api/animal/gen'*/); //'https://jsonplaceholder.typicode.com/todos/1'
   late Future<List<Animales>> animales;
+  final apodo = TextEditingController();
+  final especie = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registro de Caballos'),
+        title: const Text('Registro de Animales'),
       ),
-      body: FutureBuilder(
+      body: FutureBuilder<List<Animales>>(
         future: animales,
         builder: (context, snap) {
           if (snap.hasData) {
-            return const Center(
-              child: Text("Datos listos"),
-            );
+            return ListView.builder(
+                itemCount: snap.data!.length,
+                itemBuilder: (context, i) {
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(snap.data![i].apodo),
+                        subtitle: Text(snap.data![i].especie!.especie),
+                      ),
+                      const Divider()
+                    ],
+                  );
+                });
           }
           if (snap.hasError) {
             return const Center(
@@ -68,10 +55,47 @@ class _formcaballosState extends State<formulariocaballos> {
           },
         ),*/
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: showForm,
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
-  //final String _url = "https://localhost:7169/api/animal/gen";
+  void showForm() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Agregar Gallo"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                TextField(
+                  decoration: InputDecoration(hintText: "Apodo"),
+                ),
+                TextField(
+                  decoration: InputDecoration(hintText: "Especie"),
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Cancelar"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Guardar"),
+              )
+            ],
+          );
+        });
+  }
 
   @override
   void initState() {
@@ -79,28 +103,16 @@ class _formcaballosState extends State<formulariocaballos> {
     animales = _getAnimales();
   }
 
-  //late Future<List<Animales>> _listadoAnimales;
   Future<List<Animales>> _getAnimales() async {
-    //var uri = Uri.parse(_url);
-
     final response = await http.get(_url);
+    final jsonData = List.from(jsonDecode(response.body));
 
-    //List<Animales> animales = [];
-
-    if (response.statusCode == 200) {
-      String body = utf8.decode(response.bodyBytes);
-
-      final jsonData = List.from(jsonDecode(body));
-      List<Animales> animal = [];
-      jsonData.forEach((element) {
-        final Animales animales = Animales.fromJson(element);
-      });
-      print(jsonData);
-      return animal;
-      //for (var item in jsonData["data"]) {
-      //  animales.add(item["apodo"]);
-    } else {
-      throw Exception("Fallo la conexión");
-    }
+    List<Animales> animales = [];
+    jsonData.forEach((element) {
+      final Animales animals = Animales.fromJson(element);
+      ;
+      animales.add(animals);
+    });
+    return animales;
   }
-}*/
+}
