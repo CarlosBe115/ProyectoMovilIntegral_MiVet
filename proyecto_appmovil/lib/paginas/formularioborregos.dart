@@ -14,25 +14,50 @@ class formularioborregos extends StatefulWidget {
 class _listState extends State<formularioborregos> {
   final _url = Uri.parse('https://mivetapi.somee.com/api/animal/gen/?raza=102');
   final _url2 = Uri.parse(
-      'https://mivetapi.somee.com/api/animal/'); /*'https://10.0.2.2:7169/api/animal/gen'*/ //'https://jsonplaceholder.typicode.com/todos/1'
+      'https://mivetapi.somee.com/api/animal'); /*'https://10.0.2.2:7169/api/animal/gen'*/ //'https://jsonplaceholder.typicode.com/todos/1'
   final headers = {"content-type": "application/json;charset=UTF-8"};
   late Future<List<Animales>> animales;
-  final raza = TextEditingController();
+  String raza = "";
   final apodo = TextEditingController();
   final nacimiento = TextEditingController();
   final peso = TextEditingController();
-  final genero = TextEditingController();
-  final estado = TextEditingController();
+  String genero = "";
+  String estado = "";
+
+  int raza1 = 108;
+  int raza2 = 109;
+  bool gen1 = false;
+  bool gen2 = true;
+  int vivo = 1;
+  int muerto = 2;
+  int vendido = 3;
 
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(child: Text("USA"), value: "108"),
-      const DropdownMenuItem(child: Text("Canada"), value: "109"),
+      DropdownMenuItem(child: Text("Borrego Uno"), value: '$raza1'),
+      DropdownMenuItem(child: Text("Borrego Dos"), value: '$raza2'),
     ];
     return menuItems;
   }
 
-  String selectedValue = "USA";
+  List<DropdownMenuItem<String>> get dropdownGen {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Femenino"), value: '$gen2'),
+      DropdownMenuItem(child: Text("Masculino"), value: '$gen1'),
+    ];
+    return menuItems;
+  }
+
+  List<DropdownMenuItem<String>> get dropdownEstado {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Vivo"), value: '$vivo'),
+      DropdownMenuItem(child: Text("Muerto"), value: '$muerto'),
+      DropdownMenuItem(child: Text("Vendido"), value: '$vendido'),
+    ];
+    return menuItems;
+  }
+
+  String selectedValue = "Selecciona";
 
   @override
   Widget build(BuildContext context) {
@@ -84,24 +109,18 @@ class _listState extends State<formularioborregos> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Agregar Gallo"),
+            title: const Text("Agregar Borrego"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                DropdownButton(
-                  value: selectedValue,
-                  items: dropdownItems
-                      .map((item) => DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(item, style: TextStyle(fontSize: 24)),
-                          ))
-                      .toList(),
-                  onChanged: (item) => setState(() => selectedValue = item),
-                ),
-                TextField(
-                  controller: raza,
-                  decoration: const InputDecoration(hintText: "Raza"),
-                ),
+                DropdownButtonFormField(
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedValue = newValue!;
+                        raza = newValue;
+                      });
+                    },
+                    items: dropdownItems),
                 TextField(
                   controller: apodo,
                   decoration: const InputDecoration(hintText: "Apodo"),
@@ -114,14 +133,27 @@ class _listState extends State<formularioborregos> {
                   controller: peso,
                   decoration: const InputDecoration(hintText: "Peso"),
                 ),
-                TextField(
-                  controller: genero,
-                  decoration: const InputDecoration(hintText: "Genero"),
+                //genero
+                DropdownButtonFormField(
+                  onChanged: (
+                    String? newValue,
+                  ) {
+                    setState(() {
+                      selectedValue = newValue!;
+                      genero = newValue.toString();
+                    });
+                  },
+                  items: dropdownGen,
                 ),
-                TextField(
-                  controller: estado,
-                  decoration: const InputDecoration(hintText: "Estado"),
-                ),
+                //estado
+                DropdownButtonFormField(
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedValue = newValue!;
+                        estado = newValue.toString();
+                      });
+                    },
+                    items: dropdownEstado),
               ],
             ),
             actions: [
@@ -164,21 +196,18 @@ class _listState extends State<formularioborregos> {
 
   void _addAnimales() async {
     final animal = {
-      "raza": raza.text,
+      "raza": int.parse(raza),
       "apodo": apodo.text,
       "nacimiento": nacimiento.text,
       "peso": peso.text,
-      "genero": genero.text,
-      "estado": estado.text
+      "genero": genero.toLowerCase() == genero,
+      "estado": int.parse(estado)
     };
 
     await http.post(_url2, headers: headers, body: jsonEncode(animal));
-    raza.clear();
     apodo.clear();
     nacimiento.clear();
     peso.clear();
-    genero.clear();
-    estado.clear();
     setState(() {
       animales = _getAnimales();
     });
