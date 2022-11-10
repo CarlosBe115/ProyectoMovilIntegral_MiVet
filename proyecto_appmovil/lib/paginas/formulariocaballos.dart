@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:proyecto_appmovil/models/animales.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:proyecto_appmovil/models/animalespost.dart';
 
 class formulariocaballos extends StatefulWidget {
   const formulariocaballos({Key? key}) : super(key: key);
@@ -12,11 +13,58 @@ class formulariocaballos extends StatefulWidget {
 
 // ignore: camel_case_types
 class _listState extends State<formulariocaballos> {
-  final _url = Uri.parse(
-      'https://mivetapi.somee.com/api/animal/gen/?raza=101' /*'https://10.0.2.2:7169/api/animal/gen'*/); //'https://jsonplaceholder.typicode.com/todos/1'
+  final _url = Uri.parse('https://mivetapi.somee.com/api/animal/gen/?raza=101');
+  final _url2 = Uri.parse(
+      'https://mivetapi.somee.com/api/animal'); /*'https://10.0.2.2:7169/api/animal/gen'*/ //'https://jsonplaceholder.typicode.com/todos/1'
   late Future<List<Animales>> animales;
+  late Future<List<AnimalesPost>> animalespost;
+
+  String raza = "";
   final apodo = TextEditingController();
-  final especie = TextEditingController();
+  final nacimiento = TextEditingController();
+  final peso = TextEditingController();
+  String genero = "";
+  String estado = "";
+  //razas de caballos
+  int razaAndaluz = 105;
+  int razaArabe = 106;
+  int razaPelibuey = 107;
+  //generos
+  String femenino = "false";
+  String masculino = "true";
+  //estados
+  int vivo = 1;
+  int muerto = 2;
+  int vendido = 3;
+
+  List<DropdownMenuItem<String>> get dropdownItems {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Raza Andaluz"), value: '$razaAndaluz'),
+      DropdownMenuItem(child: Text("Raza Arabe"), value: '$razaArabe'),
+      DropdownMenuItem(child: Text("Raza Pelibuey"), value: '$razaPelibuey'),
+    ];
+    return menuItems;
+  }
+
+  List<DropdownMenuItem<String>> get dropdownGen {
+    List<DropdownMenuItem<String>> menuItems = [
+      const DropdownMenuItem(child: Text("Hembra"), value: 'false'),
+      const DropdownMenuItem(child: Text("Macho"), value: 'true'),
+    ];
+    return menuItems;
+  }
+
+  List<DropdownMenuItem<String>> get dropdownEstado {
+    List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(child: Text("Vivo"), value: '$vivo'),
+      DropdownMenuItem(child: Text("Muerto"), value: '$muerto'),
+      DropdownMenuItem(child: Text("Vendido"), value: '$vendido'),
+    ];
+    return menuItems;
+  }
+
+  String selectedValue = "Selecciona";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,16 +115,51 @@ class _listState extends State<formulariocaballos> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("Agregar  Caballo"),
+            title: const Text("Agregar Caballo"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
+                DropdownButtonFormField(
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedValue = newValue!;
+                        raza = newValue;
+                      });
+                    },
+                    items: dropdownItems),
                 TextField(
-                  decoration: InputDecoration(hintText: "Apodo"),
+                  controller: apodo,
+                  decoration: const InputDecoration(hintText: "Apodo"),
                 ),
                 TextField(
-                  decoration: InputDecoration(hintText: "Especie"),
+                  controller: nacimiento,
+                  decoration: const InputDecoration(hintText: "Nacimiento"),
                 ),
+                TextField(
+                  controller: peso,
+                  decoration: const InputDecoration(hintText: "Peso"),
+                ),
+                //genero
+                DropdownButtonFormField(
+                  onChanged: (
+                    String? newValue,
+                  ) {
+                    setState(() {
+                      selectedValue = newValue!;
+                      genero = newValue.toString();
+                    });
+                  },
+                  items: dropdownGen,
+                ),
+                //estado
+                DropdownButtonFormField(
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        selectedValue = newValue!;
+                        estado = newValue.toString();
+                      });
+                    },
+                    items: dropdownEstado),
               ],
             ),
             actions: [
@@ -88,6 +171,7 @@ class _listState extends State<formulariocaballos> {
               ),
               TextButton(
                 onPressed: () {
+                  _addAnimales();
                   Navigator.of(context).pop();
                 },
                 child: const Text("Guardar"),
@@ -110,9 +194,29 @@ class _listState extends State<formulariocaballos> {
     List<Animales> animales = [];
     jsonData.forEach((element) {
       final Animales animals = Animales.fromJson(element);
-      ;
       animales.add(animals);
     });
-    return animales;
+    return animales.reversed.toList();
+  }
+
+  void _addAnimales() async {
+    final animalespost = {
+      "raza": int.parse(raza),
+      "apodo": apodo.text,
+      "nacimiento": nacimiento.text,
+      "peso": peso.text,
+      "genero": genero.toString(),
+      "estado": int.parse(estado)
+    };
+
+    final headers = {"content-type": "application/json;charset=UTF-8"};
+    var resul = await http.post(_url2,
+        headers: headers, body: jsonEncode(animalespost));
+    apodo.clear();
+    nacimiento.clear();
+    peso.clear();
+    setState(() {
+      animales = _getAnimales();
+    });
   }
 }

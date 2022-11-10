@@ -12,7 +12,7 @@ class AnimalesPost {
   String apodo;
   DateTime nacimiento;
   String peso;
-  bool genero;
+  String genero;
   int estado;
 
   factory AnimalesPost.fromJson(Map<String, dynamic> json) => AnimalesPost(
@@ -43,18 +43,5 @@ class AnimalesPost {
     required this.peso,
     required this.genero,
     required this.estado,
-
-    /*factory Animales.fromJson(Map json) {
-    return Animales(
-        id: json["id"],
-        especie: Especie.fromJson(json["especie"]),
-        apodo: json["apodo"],
-        nacimiento: DateTime.parse(json["nacimiento"]),
-        peso: json["peso"],
-        genero: json["genero"],
-        estado: json["estado"],
-        padre: Padre.fromJson(json["padre"]),
-        pata: Pata.fromJson(json["pata"]));
-  }*/
   });
 }
