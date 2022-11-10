@@ -25,26 +25,35 @@ class _listState extends State<formularioborregos> {
   String genero = "";
   String estado = "";
 
-  int raza1 = 108;
-  int raza2 = 109;
-  bool gen1 = false;
-  bool gen2 = true;
+  //razas de borregos
+  int razaSantaInes = 108;
+  int razaDorper = 109;
+  int razaBlackBelly = 110;
+  int razaWhiteDorper = 111;
+  //generos
+  String femenino = "false";
+  String masculino = "true";
+  //estados
   int vivo = 1;
   int muerto = 2;
   int vendido = 3;
 
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Borrego Uno"), value: '$raza1'),
-      DropdownMenuItem(child: Text("Borrego Dos"), value: '$raza2'),
+      DropdownMenuItem(child: Text("Raza Santa Ines"), value: '$razaSantaInes'),
+      DropdownMenuItem(child: Text("Raza Dorper"), value: '$razaDorper'),
+      DropdownMenuItem(
+          child: Text("Raza Black Belly"), value: '$razaBlackBelly'),
+      DropdownMenuItem(
+          child: Text("Raza White Dorper"), value: '$razaWhiteDorper'),
     ];
     return menuItems;
   }
 
   List<DropdownMenuItem<String>> get dropdownGen {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Femenino"), value: '$gen2'),
-      DropdownMenuItem(child: Text("Masculino"), value: '$gen1'),
+      const DropdownMenuItem(child: Text("Hembra"), value: 'false'),
+      const DropdownMenuItem(child: Text("Macho"), value: 'true'),
     ];
     return menuItems;
   }
@@ -191,7 +200,7 @@ class _listState extends State<formularioborregos> {
       final Animales animals = Animales.fromJson(element);
       animales.add(animals);
     });
-    return animales;
+    return animales.reversed.toList();
   }
 
   void _addAnimales() async {
@@ -200,7 +209,7 @@ class _listState extends State<formularioborregos> {
       "apodo": apodo.text,
       "nacimiento": nacimiento.text,
       "peso": peso.text,
-      "genero": genero.toLowerCase() == genero,
+      "genero": genero.toString(),
       "estado": int.parse(estado)
     };
 
