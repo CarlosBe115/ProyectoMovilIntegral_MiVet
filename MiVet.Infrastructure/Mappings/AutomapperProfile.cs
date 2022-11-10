@@ -10,6 +10,7 @@ namespace MiVet.Infrastructure.Mappings
         {
             CreateMap<TbAnimal, TbAnimalDTO>();
             CreateMap<TbAnimalDTO, TbAnimal>();
+            CreateMap<SuperAnimal, TbAnimal>();
             
             CreateMap<TbEspecie, TbEspecieDTO>();
             CreateMap<TbEspecieDTO, TbEspecie>();
@@ -22,9 +23,11 @@ namespace MiVet.Infrastructure.Mappings
 
             CreateMap<TbPadre, TbPadreDTO>();
             CreateMap<TbPadreDTO, TbPadre>();
+            CreateMap<SuperAnimal, TbPadre>();
 
             CreateMap<TbPata, TbPataDTO>();
             CreateMap<TbPataDTO, TbPata>();
+            CreateMap<SuperAnimal, TbPata>();
 
             CreateMap<TbRaza, TbRazaDTO>();
             CreateMap<TbRazaDTO, TbRaza>();

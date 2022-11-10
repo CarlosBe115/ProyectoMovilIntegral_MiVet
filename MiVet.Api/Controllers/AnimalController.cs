@@ -36,10 +36,18 @@ namespace MiVet.Api.Controllers
             return Ok(animales);
         }
 
+        [Route("sup/")]
         [HttpPost]
-        public async Task<IActionResult> PostAnimal(List<TbAnimalDTO> animalDTOs)
+        public async Task<IActionResult> PostSuperAnimal(SuperAnimal animalDTOs)
         {
-            var animal = _mapper.Map<List<TbAnimal>>(animalDTOs);
+            var isvalid = await _services.PostSuperAnimal(animalDTOs);
+            return Ok(isvalid);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostAnimal(TbAnimalDTO animalDTOs)
+        {
+            var animal = _mapper.Map<TbAnimal>(animalDTOs);
             var isvalid = await _services.PostAnimal(animal);
             return Ok(isvalid);
         }

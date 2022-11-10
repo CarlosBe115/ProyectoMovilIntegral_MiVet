@@ -1,4 +1,5 @@
-﻿using MiVet.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using MiVet.Core.Entities;
 using MiVet.Core.Interfaces;
 using MiVet.Infrastructure.Data;
 
@@ -48,5 +49,41 @@ namespace MiVet.Infrastructure.Repositories
         {
             await _context.SaveChangesAsync();
         }
+
+        public bool SaveChangesTransaction()
+        {
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    _context.SaveChanges();
+                    dbContextTransaction.Commit();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    dbContextTransaction.Rollback();
+                    return false;
+                }
+            }
+        }
+        
+        public async Task SaveChangesAsyncTransaction()
+        {
+            using (var dbContextTransaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    await _context.SaveChangesAsync();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    dbContextTransaction.Rollback();
+                }
+            }
+        }
+
     }
 }
+

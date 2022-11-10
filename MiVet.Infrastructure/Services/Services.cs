@@ -1,5 +1,8 @@
-﻿using MiVet.Core.DTOs;
+﻿using AutoMapper;
+using Microsoft.Win32;
+using MiVet.Core.DTOs;
 using MiVet.Core.Entities;
+using MiVet.Core.Exceptions;
 using MiVet.Core.Filters;
 using MiVet.Core.Interfaces;
 using MiVet.Core.Services;
@@ -10,9 +13,11 @@ namespace MiVet.Infrastructure.Services
     public class Services : IServices
     {
         private readonly IUnitOfWork _unitOfWork = null!;
-        public Services(IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+        public Services(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         #region Animales
@@ -51,8 +56,6 @@ namespace MiVet.Infrastructure.Services
 
             if (filters.Id != null)
                 animales = animales.Where(a => a.Id == filters.Id);
-            if (filters.Raza != null)
-                animales = animales.Where(a => a.Raza == filters.Raza);
             if (filters.Apodo != null)
                 animales = animales.Where(a => a.Apodo == filters.Apodo);
             if (filters.Nacimiento != null)
@@ -73,8 +76,9 @@ namespace MiVet.Infrastructure.Services
                               Especie = (from ra in raza select new TbRazaViews
                                          {
                                              Id = r.Id,
-                                             Especie = r.Especie,
                                              Raza = r.Raza,
+                                             IdEspecie = r.IdEspecie,
+                                             Especie = r.Especie,
                                          }).FirstOrDefault(x => x.Id == a.Raza),
                               Apodo = a.Apodo,
                               Nacimiento = a.Nacimiento,
@@ -89,6 +93,8 @@ namespace MiVet.Infrastructure.Services
                                        }).FirstOrDefault(x => x.Id == a.Id),
                           }).ToList();
 
+            if (filters.Raza != null)
+                result = result.Where(x => x.Especie.IdEspecie == filters.Raza).ToList();
 
             for (int i = 0; i < result.Count(); i++)
             {
@@ -109,17 +115,102 @@ namespace MiVet.Infrastructure.Services
 
                 if (result[i].Genero == "True") result[i].Genero = "Macho";
                 else if (result[i].Genero == "False") result[i].Genero = "Hembra";
+
+                if (result[i].Pata == null)
+                {
+                    TbPataDTO pataVacio = new TbPataDTO();
+                    pataVacio.Id = 0;
+                    pataVacio.Rcentro = false;
+                    pataVacio.Rderecha = false;
+                    pataVacio.Rizquierda = false;
+                    pataVacio.Lcentro = false;
+                    pataVacio.Lderecha = false;
+                    pataVacio.Lizquierda = false;
+
+                    result[i].Pata = pataVacio;
+                }
+
+                if (result[i].Padre == null)
+                {
+                    TbPadreDTO padreVacio = new TbPadreDTO();
+                    padreVacio.Id = 0;
+                    padreVacio.Madre = 0;
+                    padreVacio.Padre = 0;
+
+                    result[i].Padre = padreVacio;
+                }
+
             }
 
             return result;
         }
 
-        public async Task<bool> PostAnimal(List<TbAnimal> animal)
+        public async Task<bool> PostAnimal(TbAnimal animal)
         {
-            foreach(TbAnimal registro in animal)
-                await _unitOfWork.AnimalRepository.Add(registro);
-
+            await _unitOfWork.AnimalRepository.Add(animal);
             _unitOfWork.SaveChanges();
+            return true;
+        }
+
+        public async Task<bool> PostSuperAnimal(SuperAnimal superanimal)
+        {
+            var animal = _mapper.Map<TbAnimal>(superanimal);
+
+            //Guardar Animal
+            await _unitOfWork.AnimalRepository.Add(animal);
+            await _unitOfWork.SaveChangesAsync();
+
+            try
+            {
+                superanimal.Id = animal.Id;
+
+                var padre = _mapper.Map<TbPadre>(superanimal);
+                var pata = _mapper.Map<TbPata>(superanimal);
+
+                //Guardar Padre
+                if(padre.Padre != 0 && padre.Madre != 0)
+                    await PostPadreSA(padre);
+
+                //Filtro De Raza
+                var razaFilter = new TbRazaFilters();
+                var veterinarioFilter = new TbVeterinarioFilters();
+
+                razaFilter.Id = animal.Raza;
+
+                var raza = GetRazas(razaFilter).FirstOrDefault();
+
+                //Guardar patas
+                if (raza.Especie == 100)
+                    await _unitOfWork.PataRepository.Add(pata);
+
+                //Vacunas
+                var vacunarFilter = new TbVacunaFilters();
+                vacunarFilter.Especie = raza.Especie;
+
+                var vacunasRecibir = GetVacunas(vacunarFilter);
+                var veterinario = GetVeterinarios(veterinarioFilter).FirstOrDefault();
+
+                foreach (var tbVacuna in vacunasRecibir)
+                {
+                    var registroVacunacion = new TbVacunaAnimal();
+
+                    registroVacunacion.Animal = animal.Id;
+                    registroVacunacion.Vacuna = tbVacuna.Id;
+                    registroVacunacion.Veterinario = veterinario.Id;
+                    registroVacunacion.Evidencia = String.Empty;
+                    registroVacunacion.FechaAplicacion = animal.Nacimiento.AddDays(tbVacuna.Momento);
+                    registroVacunacion.Listo = false;
+
+                    await _unitOfWork.VacunaAnimalRepository.Add(registroVacunacion);
+                }
+                _unitOfWork.SaveChangesTransaction();
+            }
+            catch (Exception ex)
+            {
+                await DeleteAnimal(animal.Id);
+                throw new BusinessException($"Guardado abortado, se ha detectado 1 o mas errores\n '{ex.Message}'");
+            }
+
             return true;
         }
 
@@ -193,6 +284,8 @@ namespace MiVet.Infrastructure.Services
 
         public IEnumerable<TbHistorialMedicoViews> GetHistorialMedicoView(TbHistorialMedicoFilters filters)
         {
+            throw new BusinessException("Estas Caracterisiticas Han Sido Deshabilitadas");
+
             TbVacunaAnimalFilter filter = new TbVacunaAnimalFilter();
 
             var historial = _unitOfWork.HistorialMedicoRepository.GetAll();
@@ -302,6 +395,40 @@ namespace MiVet.Infrastructure.Services
 
             return padres;
         }
+        public async Task<bool> PostPadreSA(TbPadre padre)
+        {
+            var filterAnimales = new TbAnimalsFilters();
+            var filterPadres = new TbPadreFilter();
+
+            filterPadres.Id = padre.Id;
+            var existeHijo = GetPadres(filterPadres).FirstOrDefault();
+            if (existeHijo != null)
+                throw new BusinessException("Este animal ya fue registrado");
+
+            var getAnimales = GetAnimales(filterAnimales);
+
+            filterAnimales.Id = padre.Id;
+            var hijoV = getAnimales.FirstOrDefault(x => x.Id == filterAnimales.Id);
+            if (hijoV == null)
+                throw new BusinessException($"No existe hijo: {padre.Id}");
+
+
+            var madreV = getAnimales.FirstOrDefault(x => x.Id == padre.Madre);
+            if (madreV == null)
+                throw new BusinessException($"No existe la madre: {padre.Madre}");
+            if (madreV.Genero == true)
+                throw new BusinessException($"{padre.Madre} no es hembra");
+
+
+            var padreV = getAnimales.FirstOrDefault(x => x.Id == padre.Padre);
+            if (padreV == null)
+                throw new BusinessException($"No existe el padre: {padre.Padre}");
+            if (padreV.Genero == false)
+                throw new BusinessException($"{padre.Madre} no es macho");
+
+            await _unitOfWork.PadreRepository.Add(padre);
+            return true;
+        }
         public async Task<bool> PostPadre(TbPadre padre)
         {
             await _unitOfWork.PadreRepository.Add(padre);
@@ -355,8 +482,9 @@ namespace MiVet.Infrastructure.Services
                           select new TbRazaViews
                           {
                               Id = r.Id,
-                              Especie = e.Nombre,
-                              Raza = r.Nombre
+                              Raza = r.Nombre,
+                              IdEspecie = e.Id,
+                              Especie = e.Nombre
                           });
 
             return result;

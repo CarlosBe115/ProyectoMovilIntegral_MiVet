@@ -17,7 +17,8 @@ namespace MiVet.Core.Interfaces
 
         void SaveChanges();
         Task SaveChangesAsync();
-
+        bool SaveChangesTransaction();
+        Task SaveChangesAsyncTransaction();
 
     }
 }

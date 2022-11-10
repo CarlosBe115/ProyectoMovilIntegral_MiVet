@@ -1,4 +1,5 @@
-﻿using MiVet.Core.Entities;
+﻿using MiVet.Core.DTOs;
+using MiVet.Core.Entities;
 using MiVet.Core.Filters;
 using MiVet.Core.Views;
 
@@ -11,7 +12,8 @@ namespace MiVet.Core.Services
 
         IEnumerable<TbAnimalViews> GetAnimalesView(TbAnimalsFilters filters);
         IEnumerable<TbAnimal> GetAnimales(TbAnimalsFilters filters);
-        Task<bool> PostAnimal(List<TbAnimal> data);
+        Task<bool> PostSuperAnimal(SuperAnimal data);//
+        Task<bool> PostAnimal(TbAnimal data);//
         Task<bool> PutAnimal(TbAnimal data);
         Task<bool> DeleteAnimal(int Id);
 

@@ -8,24 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\carna\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Luis A Martin Dzul\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Core\\MiVet.Core.csproj",
+      "projectUniqueName": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Core\\MiVet.Core.csproj",
       "projectName": "MiVet.Core",
-      "projectPath": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Core\\MiVet.Core.csproj",
-      "packagesPath": "C:\\Users\\carna\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\MiVet.Core\\obj\\",
+      "projectPath": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Core\\MiVet.Core.csproj",
+      "packagesPath": "C:\\Users\\Luis A Martin Dzul\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Luis A Martin Dzul\\source\\repos\\ASP.Net\\APIs\\MiVet\\MiVet.Core\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\carna\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Luis A Martin Dzul\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -56,7 +51,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -65,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.305\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
