@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:proyecto_appmovil/models/animalespost.dart';
 
+// ignore: camel_case_types
 class formulariocaballos extends StatefulWidget {
   const formulariocaballos({Key? key}) : super(key: key);
 
@@ -39,26 +40,28 @@ class _listState extends State<formulariocaballos> {
 
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Raza Andaluz"), value: '$razaAndaluz'),
-      DropdownMenuItem(child: Text("Raza Arabe"), value: '$razaArabe'),
-      DropdownMenuItem(child: Text("Raza Pelibuey"), value: '$razaPelibuey'),
+      DropdownMenuItem(
+          value: '$razaAndaluz', child: const Text("Raza Andaluz")),
+      DropdownMenuItem(value: '$razaArabe', child: const Text("Raza Arabe")),
+      DropdownMenuItem(
+          value: '$razaPelibuey', child: const Text("Raza Pelibuey")),
     ];
     return menuItems;
   }
 
   List<DropdownMenuItem<String>> get dropdownGen {
     List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(child: Text("Hembra"), value: 'false'),
-      const DropdownMenuItem(child: Text("Macho"), value: 'true'),
+      const DropdownMenuItem(value: 'false', child: Text("Hembra")),
+      const DropdownMenuItem(value: 'true', child: Text("Macho")),
     ];
     return menuItems;
   }
 
   List<DropdownMenuItem<String>> get dropdownEstado {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Vivo"), value: '$vivo'),
-      DropdownMenuItem(child: Text("Muerto"), value: '$muerto'),
-      DropdownMenuItem(child: Text("Vendido"), value: '$vendido'),
+      DropdownMenuItem(value: '$vivo', child: const Text("Vivo")),
+      DropdownMenuItem(value: '$muerto', child: const Text("Muerto")),
+      DropdownMenuItem(value: '$vendido', child: const Text("Vendido")),
     ];
     return menuItems;
   }
@@ -192,6 +195,7 @@ class _listState extends State<formulariocaballos> {
     final jsonData = List.from(jsonDecode(response.body));
 
     List<Animales> animales = [];
+    // ignore: avoid_function_literals_in_foreach_calls
     jsonData.forEach((element) {
       final Animales animals = Animales.fromJson(element);
       animales.add(animals);
@@ -210,8 +214,7 @@ class _listState extends State<formulariocaballos> {
     };
 
     final headers = {"content-type": "application/json;charset=UTF-8"};
-    var resul = await http.post(_url2,
-        headers: headers, body: jsonEncode(animalespost));
+    await http.post(_url2, headers: headers, body: jsonEncode(animalespost));
     apodo.clear();
     nacimiento.clear();
     peso.clear();
