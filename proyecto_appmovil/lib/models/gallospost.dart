@@ -16,12 +16,12 @@ class Gallospost {
   int estado;
   int madre;
   int padre;
-  String rizquierda;
-  String rcentro;
-  String rderecha;
-  String lizquierda;
-  String lcentro;
-  String lderecha;
+  bool rizquierda;
+  bool rcentro;
+  bool rderecha;
+  bool lizquierda;
+  bool lcentro;
+  bool lderecha;
 
   factory Gallospost.fromJson(Map<String, dynamic> json) => Gallospost(
         id: json["id"],

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:proyecto_appmovil/models/animalespost.dart';
 
+// ignore: camel_case_types
 class formularioborregos extends StatefulWidget {
   const formularioborregos({Key? key}) : super(key: key);
 
@@ -40,29 +41,30 @@ class _listState extends State<formularioborregos> {
 
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Raza Santa Ines"), value: '$razaSantaInes'),
-      DropdownMenuItem(child: Text("Raza Dorper"), value: '$razaDorper'),
       DropdownMenuItem(
-          child: Text("Raza Black Belly"), value: '$razaBlackBelly'),
+          value: '$razaSantaInes', child: const Text("Raza Santa Ines")),
+      DropdownMenuItem(value: '$razaDorper', child: const Text("Raza Dorper")),
       DropdownMenuItem(
-          child: Text("Raza White Dorper"), value: '$razaWhiteDorper'),
+          value: '$razaBlackBelly', child: const Text("Raza Black Belly")),
+      DropdownMenuItem(
+          value: '$razaWhiteDorper', child: const Text("Raza White Dorper")),
     ];
     return menuItems;
   }
 
   List<DropdownMenuItem<String>> get dropdownGen {
     List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(child: Text("Hembra"), value: 'false'),
-      const DropdownMenuItem(child: Text("Macho"), value: 'true'),
+      const DropdownMenuItem(value: 'false', child: Text("Hembra")),
+      const DropdownMenuItem(value: 'true', child: Text("Macho")),
     ];
     return menuItems;
   }
 
   List<DropdownMenuItem<String>> get dropdownEstado {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Vivo"), value: '$vivo'),
-      DropdownMenuItem(child: Text("Muerto"), value: '$muerto'),
-      DropdownMenuItem(child: Text("Vendido"), value: '$vendido'),
+      DropdownMenuItem(value: '$vivo', child: const Text("Vivo")),
+      DropdownMenuItem(value: '$muerto', child: const Text("Muerto")),
+      DropdownMenuItem(value: '$vendido', child: const Text("Vendido")),
     ];
     return menuItems;
   }
@@ -196,6 +198,7 @@ class _listState extends State<formularioborregos> {
     final jsonData = List.from(jsonDecode(response.body));
 
     List<Animales> animales = [];
+    // ignore: avoid_function_literals_in_foreach_calls
     jsonData.forEach((element) {
       final Animales animals = Animales.fromJson(element);
       animales.add(animals);
@@ -214,8 +217,7 @@ class _listState extends State<formularioborregos> {
     };
 
     final headers = {"content-type": "application/json;charset=UTF-8"};
-    var resul = await http.post(_url2,
-        headers: headers, body: jsonEncode(animalespost));
+    await http.post(_url2, headers: headers, body: jsonEncode(animalespost));
     apodo.clear();
     nacimiento.clear();
     peso.clear();

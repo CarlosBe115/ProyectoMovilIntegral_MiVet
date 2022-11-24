@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_appmovil/edit%20animals/gallosedit.dart';
 import 'package:proyecto_appmovil/models/animales.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:proyecto_appmovil/models/animalespost.dart';
 import 'package:proyecto_appmovil/models/gallospost.dart';
+import 'package:proyecto_appmovil/registros/registrogallos.dart';
 
+// ignore: camel_case_types
 class formulariogallo extends StatefulWidget {
   const formulariogallo({Key? key}) : super(key: key);
 
@@ -60,20 +62,22 @@ class _listState extends State<formulariogallo> {
   List<DropdownMenuItem<String>> get dropdownItems {
     List<DropdownMenuItem<String>> menuItems = [
       DropdownMenuItem(
-          child: Text("Raza Jersy Gigante"), value: '$razaJerseyGigante'),
+          value: '$razaJerseyGigante', child: const Text("Raza Jersy Gigante")),
       DropdownMenuItem(
-          child: Text("Raza Rhode Island Red"), value: '$razaRhodeIslandRed'),
-      DropdownMenuItem(child: Text("Raza Sussex"), value: '$razaSussex'),
-      DropdownMenuItem(child: Text("Raza Cornish"), value: '$razaCornish'),
-      DropdownMenuItem(child: Text("Raza Cobb"), value: '$razaCobb'),
+          value: '$razaRhodeIslandRed',
+          child: const Text("Raza Rhode Island Red")),
+      DropdownMenuItem(value: '$razaSussex', child: const Text("Raza Sussex")),
+      DropdownMenuItem(
+          value: '$razaCornish', child: const Text("Raza Cornish")),
+      DropdownMenuItem(value: '$razaCobb', child: const Text("Raza Cobb")),
     ];
     return menuItems;
   }
 
   List<DropdownMenuItem<String>> get dropdownGen {
     List<DropdownMenuItem<String>> menuItems = [
-      const DropdownMenuItem(child: Text("Hembra"), value: 'false'),
-      const DropdownMenuItem(child: Text("Macho"), value: 'true'),
+      const DropdownMenuItem(value: 'false', child: Text("Hembra")),
+      const DropdownMenuItem(value: 'true', child: Text("Macho")),
     ];
     return menuItems;
   }
@@ -81,9 +85,9 @@ class _listState extends State<formulariogallo> {
   //seleccionador de estado
   List<DropdownMenuItem<String>> get dropdownEstado {
     List<DropdownMenuItem<String>> menuItems = [
-      DropdownMenuItem(child: Text("Vivo"), value: '$vivo'),
-      DropdownMenuItem(child: Text("Muerto"), value: '$muerto'),
-      DropdownMenuItem(child: Text("Vendido"), value: '$vendido'),
+      DropdownMenuItem(value: '$vivo', child: const Text("Vivo")),
+      DropdownMenuItem(value: '$muerto', child: const Text("Muerto")),
+      DropdownMenuItem(value: '$vendido', child: const Text("Vendido")),
     ];
     return menuItems;
   }
@@ -92,12 +96,13 @@ class _listState extends State<formulariogallo> {
   List<DropdownMenuItem<String>> get dropdownPataR {
     List<DropdownMenuItem<String>> menuItems = [
       DropdownMenuItem(
-          child: Text("Marca Dedo Derecho"), value: '$marcarderecha'),
+          value: '$marcarderecha', child: const Text("Marca Dedo Derecho")),
       DropdownMenuItem(
-          child: Text("Marca Dedo Central"), value: '$marcarderecharcentro'),
+          value: '$marcarderecharcentro',
+          child: const Text("Marca Dedo Central")),
       DropdownMenuItem(
-          child: Text("Marca Dedo Izquierdo"),
-          value: '$marcarderecharizquierda'),
+          value: '$marcarderecharizquierda',
+          child: const Text("Marca Dedo Izquierdo")),
     ];
     return menuItems;
   }
@@ -106,61 +111,90 @@ class _listState extends State<formulariogallo> {
   List<DropdownMenuItem<String>> get dropdownPataL {
     List<DropdownMenuItem<String>> menuItems = [
       DropdownMenuItem(
-          child: Text("Marca Dedo Derecho"), value: '$marcarderechalizquierda'),
+          value: '$marcarderechalizquierda',
+          child: const Text("Marca Dedo Derecho")),
       DropdownMenuItem(
-          child: Text("Marca Dedo Central"), value: '$marcarderechalcentro'),
+          value: '$marcarderechalcentro',
+          child: const Text("Marca Dedo Central")),
       DropdownMenuItem(
-          child: Text("Marca Dedo Izquierdo"),
-          value: '$marcarderechalizquierda'),
+          value: '$marcarderechalizquierda',
+          child: const Text("Marca Dedo Izquierdo")),
     ];
     return menuItems;
   }
 
   String selectedValue = "Selecciona";
+  String? gender;
+  int? datasenda = 0;
+  String? datasend = "";
+  int? especie = 0;
+  String? date = "";
+  String? genero2 = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Registro de Animales'),
-      ),
-      body: FutureBuilder<List<Animales>>(
-        future: animales,
-        builder: (context, snap) {
-          if (snap.hasData) {
-            return ListView.builder(
-                itemCount: snap.data!.length,
-                itemBuilder: (context, i) {
-                  return Column(
-                    children: [
-                      ListTile(
-                        title: Text(snap.data![i].apodo),
-                        subtitle: Text(snap.data![i].especie!.especie),
-                      ),
-                      const Divider()
-                    ],
-                  );
-                });
-          }
-          if (snap.hasError) {
-            return const Center(
-              child: Text("Sin Registros"),
-            );
-          }
-          return const CircularProgressIndicator();
-        },
-        /*child: ElevatedButton(
+        appBar: AppBar(
+          title: const Text('Registro de Animales'),
+        ),
+        body: FutureBuilder<List<Animales>>(
+          future: animales,
+          builder: (context, snap) {
+            if (snap.hasData) {
+              return ListView.builder(
+                  itemCount: snap.data!.length,
+                  itemBuilder: (context, i) {
+                    return Column(
+                      children: [
+                        ListTile(
+                            onTap: () {
+                              datasenda = snap.data![i].id;
+                              datasend = snap.data![i].apodo;
+                              especie = snap.data![i].especie!.id;
+                              date = snap.data![i].nacimiento.toString();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => gallosedit(
+                                            id: snap.data![i].id.toString(),
+                                            apodo: snap.data![i].apodo,
+                                            especie: snap.data![i].especie!.id,
+                                            nacimiento: snap.data![i].nacimiento
+                                                .toString(),
+                                          )));
+                              print(datasend);
+                            },
+                            title: Text(snap.data![i].apodo),
+                            subtitle: Text(snap.data![i].especie!.especie),
+                            trailing: const Icon(Icons.edit)),
+                        const Divider()
+                      ],
+                    );
+                  });
+            }
+            if (snap.hasError) {
+              return const Center(
+                child: Text("Sin Registros"),
+              );
+            }
+            return const CircularProgressIndicator();
+          },
+          /*child: ElevatedButton(
           child: Text('Regresar'),
           onPressed: () {
             //jasjajsas
           },
         ),*/
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: showForm,
-        child: const Icon(Icons.add),
-      ),
-    );
+        ),
+        floatingActionButton: ElevatedButton(
+          child: const Text('Agregar Gallo'),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const registrogallos()));
+          },
+        ));
   }
 
   void showForm() {
@@ -204,6 +238,83 @@ class _listState extends State<formulariogallo> {
                   },
                   items: dropdownGen,
                 ),
+                //eleccion de patas izquierda
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      "Marca en Pata Izquierda",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    RadioListTile(
+                      title: const Text("Dedo Izquierda"),
+                      value: "",
+                      groupValue: gender,
+                      onChanged: (value) {
+                        setState(() {
+                          gender = value.toString();
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      title: const Text("Dedo Central"),
+                      value: "",
+                      groupValue: gender,
+                      onChanged: (value) {
+                        setState(() {
+                          gender = value.toString();
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      title: const Text("Dedo Derecha"),
+                      value: "",
+                      groupValue: gender,
+                      onChanged: (value) {
+                        setState(() {
+                          gender = value.toString();
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                const Text(
+                  "Marca en Pata Derecha",
+                  style: TextStyle(fontSize: 18),
+                ),
+                //marcas en pata derecha
+                RadioListTile(
+                  title: const Text("Dedo Izquierda"),
+                  value: "male",
+                  groupValue: gender,
+                  onChanged: (value) {
+                    setState(() {
+                      gender = value.toString();
+                    });
+                  },
+                ),
+
+                RadioListTile(
+                  title: const Text("Dedo Central"),
+                  value: "female",
+                  groupValue: gender,
+                  onChanged: (value) {
+                    setState(() {
+                      gender = value.toString();
+                    });
+                  },
+                ),
+
+                RadioListTile(
+                  title: const Text("Dedo Derecha"),
+                  value: "other",
+                  groupValue: gender,
+                  onChanged: (value) {
+                    setState(() {
+                      gender = value.toString();
+                    });
+                  },
+                ),
                 //estado
                 DropdownButtonFormField(
                     onChanged: (String? newValue) {
@@ -245,6 +356,7 @@ class _listState extends State<formulariogallo> {
     final jsonData = List.from(jsonDecode(response.body));
 
     List<Animales> animales = [];
+    // ignore: avoid_function_literals_in_foreach_calls
     jsonData.forEach((element) {
       final Animales animals = Animales.fromJson(element);
       animales.add(animals);
@@ -271,8 +383,7 @@ class _listState extends State<formulariogallo> {
     };
 
     final headers = {"content-type": "application/json;charset=UTF-8"};
-    var resul =
-        await http.post(_url2, headers: headers, body: jsonEncode(gallospost));
+    await http.post(_url2, headers: headers, body: jsonEncode(gallospost));
     apodo.clear();
     nacimiento.clear();
     peso.clear();

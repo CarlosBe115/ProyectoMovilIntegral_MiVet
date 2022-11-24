@@ -80,6 +80,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///C:/Users/carna/AppData/Local/Pub/Cache/hosted/pub.dev/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///C:/Users/carna/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.5",
       "packageUri": "lib/",
@@ -176,7 +182,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2022-11-08T07:09:20.848429Z",
+  "generated": "2022-11-15T05:57:55.901562Z",
   "generator": "pub",
   "generatorVersion": "2.19.0-372.0.dev"
 }

@@ -1,30 +1,26 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:proyecto_appmovil/paginas/paginahome.dart';
-import 'package:proyecto_appmovil/paginas/paginalist.dart';
+
 import 'package:proyecto_appmovil/paginas/paginaregistro.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:flutter/material.dart';
-
-import 'models/animales.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   int _paginaActual = 1;
 
-  List<Widget> _paginas = [
-    PaginaRegistro(),
-    PaginaHome(),
+  final List<Widget> _paginas = [
+    const PaginaRegistro(),
+    const PaginaHome(),
     //PaginaList(),
   ];
 
@@ -42,7 +38,7 @@ class _MyAppState extends State<MyApp> {
             });
           },
           currentIndex: _paginaActual,
-          items: [
+          items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.list_outlined), label: "Lista"),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
