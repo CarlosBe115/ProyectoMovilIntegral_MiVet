@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:proyecto_appmovil/models/animales.dart';
+import 'package:proyecto_appmovil/paginas/formulariogallo.dart';
 
 // ignore: camel_case_types
 class gallosedit extends StatefulWidget {
@@ -130,12 +131,17 @@ class _listState extends State<gallosedit> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          TextButton(
+                          ElevatedButton(
                             onPressed: () {
                               _putAnimales();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const formulariogallo()));
                             },
                             child: const Text("Actualizar información"),
-                          )
+                          ),
                         ],
                       )
                     ],

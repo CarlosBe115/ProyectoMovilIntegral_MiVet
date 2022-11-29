@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:proyecto_appmovil/models/gallospost.dart';
 import 'package:proyecto_appmovil/registros/registrogallos.dart';
+import 'package:proyecto_appmovil/vacunas/vacunagallos.dart';
 
 // ignore: camel_case_types
 class formulariogallo extends StatefulWidget {
@@ -147,26 +148,53 @@ class _listState extends State<formulariogallo> {
                     return Column(
                       children: [
                         ListTile(
-                            onTap: () {
-                              datasenda = snap.data![i].id;
-                              datasend = snap.data![i].apodo;
-                              especie = snap.data![i].especie!.id;
-                              date = snap.data![i].nacimiento.toString();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => gallosedit(
-                                            id: snap.data![i].id.toString(),
-                                            apodo: snap.data![i].apodo,
-                                            especie: snap.data![i].especie!.id,
-                                            nacimiento: snap.data![i].nacimiento
-                                                .toString(),
-                                          )));
-                              print(datasend);
-                            },
-                            title: Text(snap.data![i].apodo),
-                            subtitle: Text(snap.data![i].especie!.especie),
-                            trailing: const Icon(Icons.edit)),
+                          title: Text(snap.data![i].apodo),
+                          subtitle: Text(snap.data![i].especie!.especie),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    datasenda = snap.data![i].id;
+                                    datasend = snap.data![i].apodo;
+                                    especie = snap.data![i].especie!.id;
+                                    date = snap.data![i].nacimiento.toString();
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => gallosedit(
+                                                  id: snap.data![i].id
+                                                      .toString(),
+                                                  apodo: snap.data![i].apodo,
+                                                  especie:
+                                                      snap.data![i].especie!.id,
+                                                  nacimiento: snap
+                                                      .data![i].nacimiento
+                                                      .toString(),
+                                                )));
+                                  },
+                                  icon: const Icon(Icons.edit)),
+                              IconButton(
+                                  onPressed: () {
+                                    datasenda = snap.data![i].id;
+                                    datasend = snap.data![i].apodo;
+                                    especie = snap.data![i].especie!.id;
+                                    date = snap.data![i].nacimiento.toString();
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => vacunagallos(
+                                                  id: snap.data![i].id
+                                                      .toString(),
+                                                  apodo: snap.data![i].apodo,
+                                                  especie:
+                                                      snap.data![i].especie!.id,
+                                                )));
+                                  },
+                                  icon: const Icon(Icons.medication)),
+                            ],
+                          ),
+                        ),
                         const Divider()
                       ],
                     );

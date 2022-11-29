@@ -42,7 +42,6 @@ class _MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.list_outlined), label: "Lista"),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            //BottomNavigationBarItem(icon: Icon(Icons.list_outlined), label: "Lista")
           ],
         ),
       ),

@@ -8,45 +8,48 @@ class PaginaRegistro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Center(
-      child: Column(
-        children: <Widget>[
-          const Padding(padding: EdgeInsets.all(16.0)),
-          ElevatedButton(
-            child: const Text('Lista de Caballos Registrados'),
-            onPressed: () {
-              //jasjajsas
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const formulariocaballos()));
-            },
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Lista de Animales'),
+        ),
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              const Padding(padding: EdgeInsets.all(16.0)),
+              ElevatedButton(
+                child: const Text('Lista de Caballos Registrados'),
+                onPressed: () {
+                  //jasjajsas
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const formulariocaballos()));
+                },
+              ),
+              const Padding(padding: EdgeInsets.all(16.0)),
+              ElevatedButton(
+                child: const Text('Lista de Gallos Registrados'),
+                onPressed: () {
+                  //jasjajsas
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const formulariogallo()));
+                },
+              ),
+              const Padding(padding: EdgeInsets.all(16.0)),
+              ElevatedButton(
+                child: const Text('Lista de Borregos Registrados'),
+                onPressed: () {
+                  //jasjajsas
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const formularioborregos()));
+                },
+              ),
+            ],
           ),
-          const Padding(padding: EdgeInsets.all(16.0)),
-          ElevatedButton(
-            child: const Text('Lista de Gallos Registrados'),
-            onPressed: () {
-              //jasjajsas
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const formulariogallo()));
-            },
-          ),
-          const Padding(padding: EdgeInsets.all(16.0)),
-          ElevatedButton(
-            child: const Text('Lista de Borregos Registrados'),
-            onPressed: () {
-              //jasjajsas
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const formularioborregos()));
-            },
-          ),
-        ],
-      ),
-    ));
+        ));
   }
 }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:proyecto_appmovil/edit%20animals/caballosedit.dart';
 import 'package:proyecto_appmovil/models/animales.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:proyecto_appmovil/models/animalespost.dart';
+import 'package:proyecto_appmovil/vacunas/vacunacaballos.dart';
 
 // ignore: camel_case_types
 class formulariocaballos extends StatefulWidget {
@@ -67,6 +70,12 @@ class _listState extends State<formulariocaballos> {
   }
 
   String selectedValue = "Selecciona";
+  String? gender;
+  int? datasenda = 0;
+  String? datasend = "";
+  int? especie = 0;
+  String? date = "";
+  String? genero2 = "";
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +95,48 @@ class _listState extends State<formulariocaballos> {
                       ListTile(
                         title: Text(snap.data![i].apodo),
                         subtitle: Text(snap.data![i].especie!.especie),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  datasenda = snap.data![i].id;
+                                  datasend = snap.data![i].apodo;
+                                  especie = snap.data![i].especie!.id;
+                                  date = snap.data![i].nacimiento.toString();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => caballosedit(
+                                                id: snap.data![i].id.toString(),
+                                                apodo: snap.data![i].apodo,
+                                                especie:
+                                                    snap.data![i].especie!.id,
+                                                nacimiento: snap
+                                                    .data![i].nacimiento
+                                                    .toString(),
+                                              )));
+                                },
+                                icon: const Icon(Icons.edit)),
+                            IconButton(
+                                onPressed: () {
+                                  datasenda = snap.data![i].id;
+                                  datasend = snap.data![i].apodo;
+                                  especie = snap.data![i].especie!.id;
+                                  date = snap.data![i].nacimiento.toString();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => vacunacaballos(
+                                                id: snap.data![i].id.toString(),
+                                                apodo: snap.data![i].apodo,
+                                                especie:
+                                                    snap.data![i].especie!.id,
+                                              )));
+                                },
+                                icon: const Icon(Icons.medication)),
+                          ],
+                        ),
                       ),
                       const Divider()
                     ],
@@ -136,7 +187,22 @@ class _listState extends State<formulariocaballos> {
                 ),
                 TextField(
                   controller: nacimiento,
-                  decoration: const InputDecoration(hintText: "Nacimiento"),
+                  decoration: const InputDecoration(
+                      prefixIcon: Icon(Icons.calendar_today_rounded),
+                      labelText: "Nacimiento"),
+                  onTap: () async {
+                    DateTime? pickeddate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime(1999),
+                        lastDate: DateTime(2100));
+                    if (pickeddate != null) {
+                      setState(() {
+                        nacimiento.text =
+                            DateFormat('yyyy-MM-dd').format(pickeddate);
+                      });
+                    }
+                  },
                 ),
                 TextField(
                   controller: peso,
