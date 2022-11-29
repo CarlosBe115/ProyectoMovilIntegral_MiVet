@@ -13,13 +13,13 @@ class caballosedit extends StatefulWidget {
     super.key,
     required this.id,
     required this.apodo,
-    required this.nacimiento,
+    // required this.nacimiento,
     required this.especie,
   });
   final String? id;
   final String? apodo;
   final int? especie;
-  final String? nacimiento;
+  // final String? nacimiento;
 
   State<caballosedit> createState() => _listState();
 }
@@ -62,7 +62,7 @@ class _listState extends State<caballosedit> {
     idanimal = widget.id;
     _apodo = widget.apodo;
     especie = widget.especie;
-    date = widget.nacimiento;
+    //date = widget.nacimiento;
     super.initState();
     animales = _getAnimales1();
   }

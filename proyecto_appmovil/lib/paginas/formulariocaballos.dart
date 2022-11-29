@@ -25,7 +25,7 @@ class _listState extends State<formulariocaballos> {
 
   String raza = "";
   final apodo = TextEditingController();
-  final nacimiento = TextEditingController();
+  //final nacimiento = TextEditingController();
   final peso = TextEditingController();
   String genero = "";
   String estado = "";
@@ -103,7 +103,7 @@ class _listState extends State<formulariocaballos> {
                                   datasenda = snap.data![i].id;
                                   datasend = snap.data![i].apodo;
                                   especie = snap.data![i].especie!.id;
-                                  date = snap.data![i].nacimiento.toString();
+                                  //date = snap.data![i].nacimiento.toString();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -112,9 +112,9 @@ class _listState extends State<formulariocaballos> {
                                                 apodo: snap.data![i].apodo,
                                                 especie:
                                                     snap.data![i].especie!.id,
-                                                nacimiento: snap
-                                                    .data![i].nacimiento
-                                                    .toString(),
+                                                //nacimiento: snap
+                                                //.data![i].nacimiento
+                                                //.toString(),
                                               )));
                                 },
                                 icon: const Icon(Icons.edit)),
@@ -123,7 +123,7 @@ class _listState extends State<formulariocaballos> {
                                   datasenda = snap.data![i].id;
                                   datasend = snap.data![i].apodo;
                                   especie = snap.data![i].especie!.id;
-                                  date = snap.data![i].nacimiento.toString();
+                                  //date = snap.data![i].nacimiento.toString();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -185,7 +185,7 @@ class _listState extends State<formulariocaballos> {
                   controller: apodo,
                   decoration: const InputDecoration(hintText: "Apodo"),
                 ),
-                TextField(
+                /*TextField(
                   controller: nacimiento,
                   decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.calendar_today_rounded),
@@ -203,7 +203,7 @@ class _listState extends State<formulariocaballos> {
                       });
                     }
                   },
-                ),
+                ),*/
                 TextField(
                   controller: peso,
                   decoration: const InputDecoration(hintText: "Peso"),
@@ -273,7 +273,7 @@ class _listState extends State<formulariocaballos> {
     final animalespost = {
       "raza": int.parse(raza),
       "apodo": apodo.text,
-      "nacimiento": nacimiento.text,
+      //"nacimiento": nacimiento.text,
       "peso": peso.text,
       "genero": genero.toString(),
       "estado": int.parse(estado)
@@ -282,7 +282,7 @@ class _listState extends State<formulariocaballos> {
     final headers = {"content-type": "application/json;charset=UTF-8"};
     await http.post(_url2, headers: headers, body: jsonEncode(animalespost));
     apodo.clear();
-    nacimiento.clear();
+    //nacimiento.clear();
     peso.clear();
     setState(() {
       animales = _getAnimales();

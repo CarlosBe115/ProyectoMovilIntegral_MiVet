@@ -12,7 +12,7 @@ class Vacunaspost {
   int vacuna;
   int veterinario;
   String evidencia;
-  DateTime? fechaAplicacion;
+  //DateTime? fechaAplicacion;
   bool listo;
 
   factory Vacunaspost.fromJson(Map<String, dynamic> json) => Vacunaspost(
@@ -21,7 +21,7 @@ class Vacunaspost {
         vacuna: json["vacuna"],
         veterinario: json["veterinario"],
         evidencia: json["evidencia"],
-        fechaAplicacion: DateTime.parse(json["fechaaplicacion"]),
+        //fechaAplicacion: DateTime.parse(json["fechaaplicacion"]),
         listo: json["listo"],
       );
 
@@ -31,7 +31,7 @@ class Vacunaspost {
         "vacuna": vacuna,
         "veterinario": veterinario,
         "evidencia": evidencia,
-        "fechaaplicacion": fechaAplicacion?.toIso8601String(),
+        //"fechaaplicacion": fechaAplicacion?.toIso8601String(),
         "listo": listo
       };
 
@@ -41,7 +41,7 @@ class Vacunaspost {
     required this.vacuna,
     required this.veterinario,
     required this.evidencia,
-    required this.fechaAplicacion,
+    //required this.fechaAplicacion,
     required this.listo,
   });
 }
