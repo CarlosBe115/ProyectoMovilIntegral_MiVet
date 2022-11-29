@@ -22,7 +22,7 @@ class _listState extends State<registrogallos> {
   late Future<List<Gallospost>> gallospost;
   String raza = "";
   final apodo = TextEditingController();
-  final nacimiento = TextEditingController();
+  //final nacimiento = TextEditingController();
   final peso = TextEditingController();
   String genero = "";
   String estado = "";
@@ -123,7 +123,7 @@ class _listState extends State<registrogallos> {
                     decoration: const InputDecoration(hintText: "Apodo"),
                   ),
 
-                  TextField(
+                  /*TextField(
                     controller: nacimiento,
                     decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.calendar_today_rounded),
@@ -141,7 +141,7 @@ class _listState extends State<registrogallos> {
                         });
                       }
                     },
-                  ),
+                  ),*/
                   TextField(
                     controller: peso,
                     decoration: const InputDecoration(hintText: "Peso"),
@@ -267,7 +267,7 @@ class _listState extends State<registrogallos> {
     final gallospost = {
       "raza": int.parse(raza),
       "apodo": apodo.text,
-      "nacimiento": nacimiento.text,
+      //"nacimiento": nacimiento.text,
       "peso": peso.text,
       "genero": genero.toString(),
       "estado": int.parse(estado),
@@ -284,7 +284,7 @@ class _listState extends State<registrogallos> {
     final headers = {"content-type": "application/json;charset=UTF-8"};
     await http.post(_url2, headers: headers, body: jsonEncode(gallospost));
     apodo.clear();
-    nacimiento.clear();
+    //nacimiento.clear();
     peso.clear();
   }
 }

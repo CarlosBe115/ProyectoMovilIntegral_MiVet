@@ -29,7 +29,7 @@ class _listState extends State<vacunagallos> {
   String? idanimal = "";
   int veterinario = 1000;
   String evidencia = "fotoguardada";
-  final fechaaplicacion = TextEditingController();
+  //final fechaaplicacion = TextEditingController();
   bool listo = true;
   String vacunaseleccionada = "";
 
@@ -65,7 +65,7 @@ class _listState extends State<vacunagallos> {
 
   Future<List<Vacuna>> _getVacunaAnimales() async {
     final response = await http.get(Uri.parse(
-        'https://mivetapi.somee.com/api/VacunaAnimal/pro/?animal=$idanimal'));
+        'https://mivetapi.somee.com/api/VacunaAnimal/pro/?animal=$idanimal&listo=false'));
     print(response);
     final jsonData = List.from(jsonDecode(response.body));
 
@@ -100,7 +100,7 @@ class _listState extends State<vacunagallos> {
                       ListTile(
                           title: Text(snap.data![i].vacuna),
                           subtitle: Text(
-                              DateFormat.yMMMEd().format(snap.data![i].fecha))),
+                              "Dosis el ${DateFormat.yMMMEd().format(snap.data![i].fecha)}")),
                       const Divider(),
                       const Text(
                         "",
@@ -137,7 +137,7 @@ class _listState extends State<vacunagallos> {
                       });
                     },
                     items: dropdownVacuna),
-                TextField(
+                /*TextField(
                     controller: fechaaplicacion,
                     decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.calendar_today_rounded),
@@ -155,7 +155,7 @@ class _listState extends State<vacunagallos> {
                               DateFormat('yyyy-MM-dd').format(pickeddate);
                         });
                       }
-                    }),
+                    }),*/
               ],
             ),
             actions: [
@@ -183,7 +183,7 @@ class _listState extends State<vacunagallos> {
       "vacuna": int.parse(vacunaseleccionada),
       "veterinario": veterinario,
       "evidencia": evidencia,
-      "fechaaplicacion": fechaaplicacion.text,
+      //"fechaaplicacion": fechaaplicacion.text,
       "listo": listo,
     };
 
