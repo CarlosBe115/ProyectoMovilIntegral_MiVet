@@ -21,7 +21,7 @@ namespace MiVet.Core.DTOs
         [Required(ErrorMessage = "Evidencia es requerido")]
         public string Evidencia { get; set; } = null!;
 
-        [Required(ErrorMessage = "Fecha es requerido")]
+        //[Required(ErrorMessage = "Fecha es requerido")]
         public DateTime FechaAplicacion { get; set; }
         
         [Required(ErrorMessage = "Listo es requerido")]

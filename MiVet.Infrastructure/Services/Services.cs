@@ -7,6 +7,8 @@ using MiVet.Core.Filters;
 using MiVet.Core.Interfaces;
 using MiVet.Core.Services;
 using MiVet.Core.Views;
+using System.Linq;
+using System.Net;
 
 namespace MiVet.Infrastructure.Services
 {
@@ -147,6 +149,8 @@ namespace MiVet.Infrastructure.Services
 
         public async Task<bool> PostAnimal(TbAnimal animal)
         {
+            animal.Nacimiento = DateTime.Now;
+
             await _unitOfWork.AnimalRepository.Add(animal);
             _unitOfWork.SaveChanges();
             return true;
@@ -342,9 +346,10 @@ namespace MiVet.Infrastructure.Services
 
         #region Patas
 
-        public IEnumerable<TbPata> GetPatas(TbPataFilters filters)
+        public IEnumerable<TbPatasView> GetPatas(TbPataFilters filters)
         {
             var patas = _unitOfWork.PataRepository.GetAll();
+            var animal = _unitOfWork.AnimalRepository.GetAll();
 
             if (filters.Id != null)
                 patas = patas.Where(a => a.Id == filters.Id);
@@ -357,7 +362,26 @@ namespace MiVet.Infrastructure.Services
                     x.Lderecha == filters.Lderecha && x.Lcentro == filters.Lcentro && x.Lizquierda == filters.Lizquierda);
             }
 
-            return patas;
+            var listpatas = new List<TbPatasView>();
+            var patas2 = patas.ToList();
+
+            for(int i = 0; i < patas2.Count(); i++)
+            {
+                var newpatas = new TbPatasView();
+
+                newpatas.Id = patas2[i].Id;
+                newpatas.Nombre = animal.FirstOrDefault(x => x.Id == patas2[i].Id).Apodo;
+                newpatas.Lizquierda = patas2[i].Lizquierda;
+                newpatas.Lcentro = patas2[i].Lcentro;
+                newpatas.Lderecha = patas2[i].Lderecha;
+                newpatas.Rizquierda = patas2[i].Rizquierda;
+                newpatas.Rcentro = patas2[i].Rcentro;
+                newpatas.Rderecha = patas2[i].Rderecha;
+
+                listpatas.Add(newpatas);
+            }
+
+            return listpatas;
         }
         public async Task<bool> PostPatas(TbPata pata)
         {
@@ -617,9 +641,104 @@ namespace MiVet.Infrastructure.Services
             return vacunaAnimal;
         }
 
+        public IEnumerable<TbNotVacunaAnimals> GetNotVacunaAnimals()
+        {
+            var sinvacuna = new List<TbNotVacunaAnimals>();
+
+            var animal = _unitOfWork.AnimalRepository.GetAll().ToList();
+            var vacuna = _unitOfWork.VacunaAnimalRepository.GetAll().ToList();
+
+            for (int i = 0; i < animal.Count(); i++) 
+            {
+                var tbAnimal = new TbNotVacunaAnimals();
+
+                if(vacuna.Where(x => x.Animal == animal[i].Id).Count() == 0)
+                {
+                    tbAnimal.Id = animal[i].Id;
+                    tbAnimal.Apodo = animal[i].Apodo;
+
+                    sinvacuna.Add(tbAnimal);
+                }
+            }
+
+            return sinvacuna;
+        }
+
+        public IEnumerable<TbInfoVacunaAnimals> GetInfoVacunaAnimals(string nombreVacuna)
+        {
+            DateTime date = DateTime.Now.Date;
+
+            var animal = _unitOfWork.AnimalRepository.GetAll().ToList();
+            var vacuna = _unitOfWork.VacunaRepository.GetAll().ToList();
+            var vacanimal = _unitOfWork.VacunaAnimalRepository.GetAll().ToList();
+
+            var infovacuna = (from va in vacanimal
+                             join a in animal on va.Animal equals a.Id
+                             join v in vacuna on va.Vacuna equals v.Id
+                             select new TbInfoVacunaAnimals
+                             {
+                                    IdVacuna = va.Id,
+                                    IdAnimal = va.Animal,
+                                    Apodo = a.Apodo,
+                                    Aplicacion = va.FechaAplicacion,
+                                    Listo = va.Listo,
+                                    NombreVacuna = v.Nombre,
+                                    TipoVacuna = v.Tipo,
+                                    ViaVacuna = v.Via,
+                                    Momento = v.Momento,
+                                    NecesitaRefuerzo = v.NecesitaRefuerzo,
+                                    Refuerzo = v.Refuerzo
+                                });
+
+
+            infovacuna = infovacuna.Where(x =>
+                (x.Aplicacion >= date && x.Aplicacion <= date.AddDays(30) && x.Listo == false) ||
+                (x.Aplicacion <= date && x.Listo == false));
+
+            if (nombreVacuna != null)
+            {
+                nombreVacuna = nombreVacuna.ToLower();
+                infovacuna = infovacuna.Where(x => x.NombreVacuna.ToLower().Contains(nombreVacuna));
+            }
+
+            return infovacuna;
+        }
+
         public async Task<bool> PostVacunaAnimal(TbVacunaAnimal tbVacunaAnimal)
         {
+            var animalFilter = new TbAnimalsFilters();
+            var vacunaFilter = new TbVacunaFilters();
+
+            int? dias = 0;
+
+            animalFilter.Id = tbVacunaAnimal.Animal;
+            var animal = GetAnimales(animalFilter).FirstOrDefault();
+
+            vacunaFilter.Id = tbVacunaAnimal.Vacuna;
+            var vacuna = GetVacunas(vacunaFilter).FirstOrDefault();
+
+            dias = vacuna.Momento;
+            tbVacunaAnimal.FechaAplicacion = animal.Nacimiento.AddDays((double)dias);
+            tbVacunaAnimal.Listo = false;
+
             await _unitOfWork.VacunaAnimalRepository.Add(tbVacunaAnimal);
+
+            if (vacuna.NecesitaRefuerzo)
+            {
+                var refuerzoVacuna = new TbVacunaAnimal();
+
+                dias = dias + vacuna.Refuerzo;
+
+                refuerzoVacuna.Animal = tbVacunaAnimal.Animal;
+                refuerzoVacuna.Vacuna = tbVacunaAnimal.Vacuna;
+                refuerzoVacuna.Veterinario = tbVacunaAnimal.Veterinario;
+                refuerzoVacuna.Evidencia = tbVacunaAnimal.Evidencia;
+                refuerzoVacuna.FechaAplicacion = animal.Nacimiento.AddDays((double)dias);
+                refuerzoVacuna.Listo = false;
+
+                await _unitOfWork.VacunaAnimalRepository.Add(refuerzoVacuna);
+            }
+
             _unitOfWork.SaveChanges();
             return true;
         }

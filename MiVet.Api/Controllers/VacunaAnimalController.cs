@@ -38,6 +38,22 @@ namespace MiVet.Api.Controllers
             return Ok(vacunaAnimalDTO);
         }
 
+        [Route("sinvacuna/")]
+        [HttpGet]
+        public async Task<IActionResult> GetNotVacunaAnimals()
+        {
+            var notVacunaAnimal = _services.GetNotVacunaAnimals();
+            return Ok(notVacunaAnimal);
+        }
+
+        [Route("infovacuna/")]
+        [HttpGet]
+        public async Task<IActionResult> GetInfoVacunaAnimals(string? nombreVacuna)
+        {
+            var notVacunaAnimal = _services.GetInfoVacunaAnimals(nombreVacuna);
+            return Ok(notVacunaAnimal);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostVacunaAnimal(TbVacunaAnimalDTO vacunaAnimalDTO)
         {

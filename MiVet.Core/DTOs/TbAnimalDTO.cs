@@ -13,7 +13,7 @@ namespace MiVet.Core.DTOs
         [StringLength(maximumLength: 50, ErrorMessage = "Apodo no debe tener mas de 50 caracteres")]
         public string? Apodo { get; set; }
 
-        [Required(ErrorMessage = "Fecha es requerido")]
+        //[Required(ErrorMessage = "Fecha es requerido")]
         public DateTime Nacimiento { get; set; }
 
         [StringLength(maximumLength: 20, ErrorMessage = "Peso no debe tener mas de 20 caracteres")]

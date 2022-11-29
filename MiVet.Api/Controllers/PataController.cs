@@ -24,8 +24,7 @@ namespace MiVet.Api.Controllers
         public async Task<IActionResult> GetPatas([FromQuery] TbPataFilters filters)
         {
             var patas = _services.GetPatas(filters);
-            var patasDTO = _mapper.Map<IEnumerable<TbPataDTO>>(patas);
-            return Ok(patasDTO);
+            return Ok(patas);
         }
 
         [HttpPost]

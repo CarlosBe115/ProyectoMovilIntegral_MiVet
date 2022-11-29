@@ -50,7 +50,7 @@ namespace MiVet.Core.Services
 
         #region Patas
 
-        IEnumerable<TbPata> GetPatas(TbPataFilters filters);
+        IEnumerable<TbPatasView> GetPatas(TbPataFilters filters);
         Task<bool> PostPatas(TbPata data);
         Task<bool> PutPatas(TbPata data);
         Task<bool> DeletePata(int Id);
@@ -79,6 +79,8 @@ namespace MiVet.Core.Services
 
         IEnumerable<TbVacunaAnimalView> GetVacunaAnimalView(TbVacunaAnimalFilter filter);
         IEnumerable<TbVacunaAnimal> GetVacunaAnimals(TbVacunaAnimalFilter filter);
+        IEnumerable<TbNotVacunaAnimals> GetNotVacunaAnimals();
+        IEnumerable<TbInfoVacunaAnimals> GetInfoVacunaAnimals(string nombreVacuna);
         Task<bool> PostVacunaAnimal(TbVacunaAnimal data);
         Task<bool> PutVacunaAnimal(TbVacunaAnimal data);
         Task<bool> DeleteVacunaAnimal(int Id);

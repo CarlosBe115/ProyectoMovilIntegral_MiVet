@@ -5,7 +5,6 @@ namespace MiVet.Core.DTOs
     public class TbPataDTO
     {
         public int? Id { get; set; }
-        [Required(ErrorMessage = "Pata Derecha, Dedo Izquierdo")]
         public bool Rizquierda { get; set; }
         [Required(ErrorMessage = "Pata Derecha, Dedo Medio")]
         public bool Rcentro { get; set; }
