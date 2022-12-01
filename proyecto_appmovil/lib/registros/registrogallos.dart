@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:proyecto_appmovil/models/animales.dart';
 import 'package:proyecto_appmovil/models/gallospost.dart';
+import 'package:proyecto_appmovil/paginas/formulariogallo.dart';
 
 // ignore: camel_case_types
 class registrogallos extends StatefulWidget {
@@ -58,6 +59,7 @@ class _listState extends State<registrogallos> {
   String marcard2izquierda = "true";
   String marcard2centro = "true";
   String marcard2derecha = "true";
+  String? date = "";
 
   //seleccionador de raza
   List<DropdownMenuItem<String>> get dropdownItems {
@@ -245,12 +247,23 @@ class _listState extends State<registrogallos> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const formulariogallo()));
+                        },
                         child: const Text("Cancelar"),
                       ),
                       TextButton(
                         onPressed: () {
                           _addAnimales();
+                          Navigator.pop(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const formulariogallo()));
                         },
                         child: const Text("Guardar"),
                       )

@@ -103,7 +103,7 @@ class _listState extends State<formulariocaballos> {
                                   datasenda = snap.data![i].id;
                                   datasend = snap.data![i].apodo;
                                   especie = snap.data![i].especie!.id;
-                                  //date = snap.data![i].nacimiento.toString();
+                                  date = snap.data![i].nacimiento.toString();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -112,9 +112,9 @@ class _listState extends State<formulariocaballos> {
                                                 apodo: snap.data![i].apodo,
                                                 especie:
                                                     snap.data![i].especie!.id,
-                                                //nacimiento: snap
-                                                //.data![i].nacimiento
-                                                //.toString(),
+                                                nacimiento: snap
+                                                    .data![i].nacimiento
+                                                    .toString(),
                                               )));
                                 },
                                 icon: const Icon(Icons.edit)),
@@ -123,7 +123,7 @@ class _listState extends State<formulariocaballos> {
                                   datasenda = snap.data![i].id;
                                   datasend = snap.data![i].apodo;
                                   especie = snap.data![i].especie!.id;
-                                  //date = snap.data![i].nacimiento.toString();
+                                  date = snap.data![i].nacimiento.toString();
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(

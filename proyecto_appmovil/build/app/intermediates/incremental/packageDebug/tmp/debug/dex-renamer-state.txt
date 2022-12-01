@@ -1,4 +1,4 @@
-#Tue Nov 29 12:58:44 CST 2022
+#Thu Dec 01 11:52:12 CST 2022
 base.0=C\:\\Users\\carna\\OneDrive\\Documentos\\GitHub\\ProyectoMovilIntegral_MiVet\\proyecto_appmovil\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

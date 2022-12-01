@@ -158,7 +158,7 @@ class _listState extends State<formulariogallo> {
                                     datasenda = snap.data![i].id;
                                     datasend = snap.data![i].apodo;
                                     especie = snap.data![i].especie!.id;
-                                    //date = snap.data![i].nacimiento.toString();
+                                    date = snap.data![i].nacimiento.toString();
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -168,9 +168,9 @@ class _listState extends State<formulariogallo> {
                                                   apodo: snap.data![i].apodo,
                                                   especie:
                                                       snap.data![i].especie!.id,
-                                                  //   nacimiento: snap
-                                                  //     .data![i].nacimiento
-                                                  //   .toString(),
+                                                  nacimiento: snap
+                                                      .data![i].nacimiento
+                                                      .toString(),
                                                 )));
                                   },
                                   icon: const Icon(Icons.edit)),
@@ -179,7 +179,7 @@ class _listState extends State<formulariogallo> {
                                     datasenda = snap.data![i].id;
                                     datasend = snap.data![i].apodo;
                                     especie = snap.data![i].especie!.id;
-                                    //  date = snap.data![i].nacimiento.toString();
+                                    date = snap.data![i].nacimiento.toString();
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -375,8 +375,8 @@ class _listState extends State<formulariogallo> {
 
   @override
   void initState() {
-    super.initState();
     animales = _getAnimales();
+    super.initState();
   }
 
   Future<List<Animales>> _getAnimales() async {
@@ -412,6 +412,7 @@ class _listState extends State<formulariogallo> {
 
     final headers = {"content-type": "application/json;charset=UTF-8"};
     await http.post(_url2, headers: headers, body: jsonEncode(gallospost));
+    print(gallospost);
     apodo.clear();
     // nacimiento.clear();
     peso.clear();

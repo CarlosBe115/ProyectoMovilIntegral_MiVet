@@ -10,7 +10,7 @@ class Animales {
   int id;
   Especie? especie;
   String apodo;
-  //DateTime nacimiento;
+  DateTime nacimiento;
   String peso;
   String genero;
   String estado;
@@ -21,7 +21,7 @@ class Animales {
         id: json["id"],
         especie: Especie.fromJson(json["especie"]),
         apodo: json["apodo"],
-        //nacimiento: DateTime.parse(json["nacimiento"]),
+        nacimiento: DateTime.parse(json["nacimiento"]),
         peso: json["peso"],
         genero: json["genero"],
         estado: json["estado"],
@@ -33,7 +33,7 @@ class Animales {
         "id": id,
         "especie": especie?.toJson(),
         "apodo": apodo,
-        //"nacimiento": nacimiento.toIso8601String(),
+        "nacimiento": nacimiento.toIso8601String(),
         "peso": peso,
         "genero": genero,
         "estado": estado,
@@ -45,7 +45,7 @@ class Animales {
       {required this.id,
       required this.especie,
       required this.apodo,
-      //required this.nacimiento,
+      required this.nacimiento,
       required this.peso,
       required this.genero,
       required this.estado,
