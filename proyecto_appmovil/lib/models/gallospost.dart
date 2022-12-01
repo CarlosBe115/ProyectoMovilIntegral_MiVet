@@ -10,7 +10,7 @@ class Gallospost {
   int id;
   int raza;
   String apodo;
-  //DateTime nacimiento;
+  DateTime nacimiento;
   String peso;
   String genero;
   int estado;
@@ -27,7 +27,7 @@ class Gallospost {
         id: json["id"],
         raza: json["raza"],
         apodo: json["apodo"],
-        //nacimiento: DateTime.parse(json["nacimiento"]),
+        nacimiento: DateTime.parse(json["nacimiento"]),
         peso: json["peso"],
         genero: json["genero"],
         estado: json["estado"],
@@ -45,7 +45,7 @@ class Gallospost {
         "id": id,
         "raza": raza,
         "apodo": apodo,
-        //"nacimiento": nacimiento.toIso8601String(),
+        "nacimiento": nacimiento.toIso8601String(),
         "peso": peso,
         "genero": genero,
         "estado": estado,
@@ -63,7 +63,7 @@ class Gallospost {
       {required this.id,
       required this.raza,
       required this.apodo,
-      //required this.nacimiento,
+      required this.nacimiento,
       required this.peso,
       required this.genero,
       required this.estado,
