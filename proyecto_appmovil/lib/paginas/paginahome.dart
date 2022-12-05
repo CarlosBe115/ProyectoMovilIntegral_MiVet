@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_appmovil/paginas/correo.dart';
-import 'package:proyecto_appmovil/paginas/formularioborregos.dart';
-import 'package:proyecto_appmovil/paginas/formulariocaballos.dart';
+import 'package:proyecto_appmovil/paginas/_formb.dart';
+import 'package:proyecto_appmovil/paginas/_formc.dart';
 import 'package:proyecto_appmovil/paginas/formulariogallo.dart';
 import 'package:proyecto_appmovil/vacunas/sinvacuna.dart';
 

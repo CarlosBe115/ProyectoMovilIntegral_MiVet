@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_appmovil/paginas/admin.dart';
 import 'package:proyecto_appmovil/paginas/paginahome.dart';
 
 import 'package:proyecto_appmovil/paginas/paginaregistro.dart';
@@ -21,7 +22,7 @@ class _MyAppState extends State<MyApp> {
   final List<Widget> _paginas = [
     const PaginaRegistro(),
     const PaginaHome(),
-    //PaginaList(),
+    const adminanimals(),
   ];
 
   @override
@@ -42,6 +43,8 @@ class _MyAppState extends State<MyApp> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.list_outlined), label: "Lista"),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.admin_panel_settings_rounded), label: "Admin"),
           ],
         ),
       ),

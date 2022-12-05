@@ -60,13 +60,13 @@ class _listState extends State<sinvacuna> {
 
   Future<List<Animalesinvacuna>> _getAnimalSinVacuna() async {
     final response = await http.get(
-        Uri.parse('https://mivetapi.somee.com/api/VacunaAnimal/sinvacuna'));
+        Uri.parse('https://www.vetapi.somee.com/api/VacunaAnimal/sinvacuna'));
     final jsonData = List.from(jsonDecode(response.body));
     List<Animalesinvacuna> animales = [];
     jsonData.forEach((element) {
       final Animalesinvacuna animals = Animalesinvacuna.fromJson(element);
       animales.add(animals);
     });
-    return animales;
+    return animales.reversed.toList();
   }
 }
