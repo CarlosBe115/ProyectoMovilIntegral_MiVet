@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:proyecto_appmovil/models/animales.dart';
 import 'package:proyecto_appmovil/models/gallospost.dart';
 import 'package:proyecto_appmovil/paginas/formulariogallo.dart';
+import 'package:proyecto_appmovil/paginas/paginaregistro.dart';
 
 // ignore: camel_case_types
 class registrogallos extends StatefulWidget {
@@ -18,7 +19,7 @@ class registrogallos extends StatefulWidget {
 
 // ignore: camel_case_types
 class _listState extends State<registrogallos> {
-  final _url2 = Uri.parse('https://mivetapi.somee.com/api/animal/sup');
+  final _url2 = Uri.parse('https://www.vetapi.somee.com/api/Animal/sup');
   late Future<List<Animales>> animales;
   late Future<List<Gallospost>> gallospost;
   String raza = "";
@@ -113,6 +114,7 @@ class _listState extends State<registrogallos> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   DropdownButtonFormField(
+                      hint: const Text("Seleccionar Raza"),
                       onChanged: (String? newValue) {
                         setState(() {
                           selectedValue = newValue!;
@@ -150,6 +152,7 @@ class _listState extends State<registrogallos> {
                   ),
                   //genero
                   DropdownButtonFormField(
+                    hint: const Text("Seleccionar Género"),
                     onChanged: (
                       String? newValue,
                     ) {
@@ -234,6 +237,7 @@ class _listState extends State<registrogallos> {
                       ),
                       //estado
                       DropdownButtonFormField(
+                          hint: const Text("Seleccionar Estado"),
                           onChanged: (String? newValue) {
                             setState(() {
                               selectedValue = newValue!;
@@ -252,7 +256,7 @@ class _listState extends State<registrogallos> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const formulariogallo()));
+                                      const PaginaRegistro()));
                         },
                         child: const Text("Cancelar"),
                       ),
@@ -263,7 +267,7 @@ class _listState extends State<registrogallos> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      const formulariogallo()));
+                                      const PaginaRegistro()));
                         },
                         child: const Text("Guardar"),
                       )

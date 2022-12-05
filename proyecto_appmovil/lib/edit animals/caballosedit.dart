@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:proyecto_appmovil/models/animales.dart';
-import 'package:proyecto_appmovil/paginas/formularioborregos.dart';
-import 'package:proyecto_appmovil/paginas/formulariocaballos.dart';
+import 'package:proyecto_appmovil/paginas/_formb.dart';
+import 'package:proyecto_appmovil/paginas/_formc.dart';
 import 'package:proyecto_appmovil/paginas/formulariogallo.dart';
 
 // ignore: camel_case_types
@@ -12,14 +12,14 @@ class caballosedit extends StatefulWidget {
   caballosedit({
     super.key,
     required this.id,
-    required this.apodo,
+    /*required this.apodo,
     required this.nacimiento,
-    required this.especie,
+    required this.especie,*/
   });
   final String? id;
-  final String? apodo;
+  /*final String? apodo;
   final int? especie;
-  final String? nacimiento;
+  final String? nacimiento;*/
 
   State<caballosedit> createState() => _listState();
 }
@@ -60,9 +60,9 @@ class _listState extends State<caballosedit> {
   @override
   void initState() {
     idanimal = widget.id;
-    _apodo = widget.apodo;
+    /*_apodo = widget.apodo;
     especie = widget.especie;
-    date = widget.nacimiento;
+    date = widget.nacimiento;*/
     super.initState();
     animales = _getAnimales1();
   }

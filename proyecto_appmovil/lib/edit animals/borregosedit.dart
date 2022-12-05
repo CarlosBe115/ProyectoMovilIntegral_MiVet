@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:proyecto_appmovil/models/animales.dart';
-import 'package:proyecto_appmovil/paginas/formularioborregos.dart';
+import 'package:proyecto_appmovil/paginas/_formb.dart';
 import 'package:proyecto_appmovil/paginas/formulariogallo.dart';
 
 // ignore: camel_case_types

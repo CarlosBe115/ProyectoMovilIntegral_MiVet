@@ -17,7 +17,8 @@ class formulariogallo extends StatefulWidget {
 
 // ignore: camel_case_types
 class _listState extends State<formulariogallo> {
-  final _url = Uri.parse('https://mivetapi.somee.com/api/animal/gen/?raza=100');
+  final _url =
+      Uri.parse('https://www.vetapi.somee.com/api/animal/gen/?raza=100');
   final _url2 = Uri.parse(
       'https://mivetapi.somee.com/api/animal/sup'); /*'https://10.0.2.2:7169/api/animal/gen'*/ //'https://jsonplaceholder.typicode.com/todos/1'
   late Future<List<Animales>> animales;
@@ -135,94 +136,84 @@ class _listState extends State<formulariogallo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Registro de Animales'),
-        ),
-        body: FutureBuilder<List<Animales>>(
-          future: animales,
-          builder: (context, snap) {
-            if (snap.hasData) {
-              return ListView.builder(
-                  itemCount: snap.data!.length,
-                  itemBuilder: (context, i) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          title: Text(snap.data![i].apodo),
-                          subtitle: Text(snap.data![i].especie!.especie),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    datasenda = snap.data![i].id;
-                                    datasend = snap.data![i].apodo;
-                                    especie = snap.data![i].especie!.id;
-                                    date = snap.data![i].nacimiento.toString();
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => gallosedit(
-                                                  id: snap.data![i].id
-                                                      .toString(),
-                                                  apodo: snap.data![i].apodo,
+      appBar: AppBar(
+        title: const Text('Registro de Animales'),
+      ),
+      body: FutureBuilder<List<Animales>>(
+        future: animales,
+        builder: (context, snap) {
+          if (snap.hasData) {
+            return ListView.builder(
+                itemCount: snap.data!.length,
+                itemBuilder: (context, i) {
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(snap.data![i].apodo),
+                        subtitle: Text(snap.data![i].especie!.especie),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  datasenda = snap.data![i].id;
+                                  datasend = snap.data![i].apodo;
+                                  especie = snap.data![i].especie!.id;
+                                  date = snap.data![i].nacimiento.toString();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => gallosedit(
+                                                id: snap.data![i].id.toString(),
+                                                /* apodo: snap.data![i].apodo,
                                                   especie:
                                                       snap.data![i].especie!.id,
                                                   nacimiento: snap
                                                       .data![i].nacimiento
-                                                      .toString(),
-                                                )));
-                                  },
-                                  icon: const Icon(Icons.edit)),
-                              IconButton(
-                                  onPressed: () {
-                                    datasenda = snap.data![i].id;
-                                    datasend = snap.data![i].apodo;
-                                    especie = snap.data![i].especie!.id;
-                                    date = snap.data![i].nacimiento.toString();
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => vacunagallos(
-                                                  id: snap.data![i].id
-                                                      .toString(),
-                                                  apodo: snap.data![i].apodo,
-                                                  especie:
-                                                      snap.data![i].especie!.id,
-                                                )));
-                                  },
-                                  icon: const Icon(Icons.medication)),
-                            ],
-                          ),
+                                                      .toString(),*/
+                                              )));
+                                },
+                                icon: const Icon(Icons.edit)),
+                            IconButton(
+                                onPressed: () {
+                                  datasenda = snap.data![i].id;
+                                  datasend = snap.data![i].apodo;
+                                  especie = snap.data![i].especie!.id;
+                                  date = snap.data![i].nacimiento.toString();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => vacunagallos(
+                                                id: snap.data![i].id.toString(),
+                                                apodo: snap.data![i].apodo,
+                                                especie:
+                                                    snap.data![i].especie!.id,
+                                              )));
+                                },
+                                icon: const Icon(Icons.medication)),
+                          ],
                         ),
-                        const Divider()
-                      ],
-                    );
-                  });
-            }
-            if (snap.hasError) {
-              return const Center(
-                child: Text("Sin Registros"),
-              );
-            }
-            return const CircularProgressIndicator();
-          },
-          /*child: ElevatedButton(
+                      ),
+                      const Divider()
+                    ],
+                  );
+                });
+          }
+          if (snap.hasError) {
+            return const Center(
+              child: Text("Sin Registros"),
+            );
+          }
+          return const CircularProgressIndicator();
+        },
+        /*child: ElevatedButton(
           child: Text('Regresar'),
           onPressed: () {
             //jasjajsas
           },
         ),*/
-        ),
-        floatingActionButton: ElevatedButton(
-          child: const Text('Agregar Gallo'),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const registrogallos()));
-          },
-        ));
+      ),
+    );
   }
 
   void showForm() {
