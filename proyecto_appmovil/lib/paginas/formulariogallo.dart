@@ -165,12 +165,12 @@ class _listState extends State<formulariogallo> {
                                       MaterialPageRoute(
                                           builder: (context) => gallosedit(
                                                 id: snap.data![i].id.toString(),
-                                                /* apodo: snap.data![i].apodo,
-                                                  especie:
-                                                      snap.data![i].especie!.id,
-                                                  nacimiento: snap
-                                                      .data![i].nacimiento
-                                                      .toString(),*/
+                                                apodo: snap.data![i].apodo,
+                                                especie:
+                                                    snap.data![i].especie!.id,
+                                                nacimiento: snap
+                                                    .data![i].nacimiento
+                                                    .toString(),
                                               )));
                                 },
                                 icon: const Icon(Icons.edit)),

@@ -29,7 +29,7 @@ class _listState extends State<vacunasanimal> {
   String? idanimal = "";
   int veterinario = 1000;
   String evidencia = "fotoguardada";
-  //final fechaaplicacion = TextEditingController();
+
   bool listo = false;
   String vacunaseleccionada = "";
 
@@ -43,16 +43,15 @@ class _listState extends State<vacunasanimal> {
   //seleccionador de vacunas para gallos
   List<DropdownMenuItem<String>> get dropdownVacuna {
     List<DropdownMenuItem<String>> menuItems = [
+      DropdownMenuItem(value: '$vacuna1', child: const Text(" Marek")),
       DropdownMenuItem(
-          value: '$vacuna1', child: const Text("OneShot Ultra 8 ")),
-      DropdownMenuItem(
-          value: '$vacuna2', child: const Text("Selenio + Vitamina B")),
+          value: '$vacuna2', child: const Text("NewCastle(RL New Live)")),
       DropdownMenuItem(
           value: '$vacuna3', child: const Text("Influenza Equina")),
       DropdownMenuItem(value: '$vacuna4', child: const Text("Rinoneumonitis")),
-      DropdownMenuItem(value: '$vacuna5', child: const Text("Marek")),
+      DropdownMenuItem(value: '$vacuna5', child: const Text("OneShot Ultra 8")),
       DropdownMenuItem(
-          value: '$vacuna6', child: const Text("Newcastle(RL New Live)")),
+          value: '$vacuna6', child: const Text("Selenio + Vitamina B")),
     ];
     return menuItems;
   }
@@ -92,7 +91,7 @@ class _listState extends State<vacunasanimal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de Vacunas'),
+        title: const Text('Vacunas del Animal'),
       ),
       body: FutureBuilder<List<Vacuna>>(
         future: vacunas,
@@ -155,7 +154,7 @@ class _listState extends State<vacunasanimal> {
               ),
               TextButton(
                 onPressed: () {
-                  _addVacunaAnimal();
+                  _addVacunaAnimal1();
                   Navigator.of(context).pop();
                 },
                 child: const Text("Guardar"),
@@ -165,18 +164,19 @@ class _listState extends State<vacunasanimal> {
         });
   }
 
-  void _addVacunaAnimal() async {
+  void _addVacunaAnimal1() async {
     final vacunaspost = {
       "animal": int.parse(idanimal!),
       "vacuna": int.parse(vacunaseleccionada),
       "veterinario": veterinario,
       "evidencia": evidencia,
-      //"fechaaplicacion": fechaaplicacion.text,
+      //"fechaaplicacion": fechaaplicacion,
       "listo": listo,
     };
 
     final headers = {"content-type": "application/json;charset=UTF-8"};
-    await http.post(_url2, headers: headers, body: jsonEncode(vacunaspost));
+    await http.post(Uri.parse('https://www.vetapi.somee.com/api/VacunaAnimal'),
+        headers: headers, body: jsonEncode(vacunaspost));
     setState(() {
       vacunas = _getVacunaAnimales();
     });

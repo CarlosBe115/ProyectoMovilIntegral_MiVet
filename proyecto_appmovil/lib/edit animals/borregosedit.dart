@@ -68,7 +68,7 @@ class _listState extends State<borregosedit> {
 
   Future<List<Animales>> _getAnimales1() async {
     final response = await http.get(
-        Uri.parse('https://mivetapi.somee.com/api/animal/gen/?id=$idanimal'));
+        Uri.parse('https://www.vetapi.somee.com/api/animal/gen/?id=$idanimal'));
     print(response);
     final jsonData = List.from(jsonDecode(response.body));
 
@@ -84,7 +84,7 @@ class _listState extends State<borregosedit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Registro de Animales'),
+        title: const Text('Actualizar Animal'),
       ),
       body: FutureBuilder<List<Animales>>(
         future: animales,
@@ -179,7 +179,7 @@ class _listState extends State<borregosedit> {
     };
 
     final headers = {"content-type": "application/json;charset=UTF-8"};
-    await http.put(Uri.parse("https://mivetapi.somee.com/api/Animal"),
+    await http.put(Uri.parse("https://www.vetapi.somee.com/api/Animal"),
         headers: headers, body: jsonEncode(gallosput));
   }
 }
