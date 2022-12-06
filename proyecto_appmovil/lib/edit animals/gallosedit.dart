@@ -10,14 +10,14 @@ class gallosedit extends StatefulWidget {
   gallosedit({
     super.key,
     required this.id,
-    /*required this.apodo,
+    required this.apodo,
     required this.nacimiento,
-    required this.especie,*/
+    required this.especie,
   });
   final String? id;
-  /*final String? apodo;
+  final String? apodo;
   final int? especie;
-  final String? nacimiento;*/
+  final String? nacimiento;
 
   State<gallosedit> createState() => _listState();
 }
@@ -58,16 +58,16 @@ class _listState extends State<gallosedit> {
   @override
   void initState() {
     idanimal = widget.id;
-    /*_apodo = widget.apodo;
+    _apodo = widget.apodo;
     especie = widget.especie;
-    date = widget.nacimiento;*/
+    date = widget.nacimiento;
     super.initState();
     animales = _getAnimales1();
   }
 
   Future<List<Animales>> _getAnimales1() async {
     final response = await http.get(
-        Uri.parse('https://mivetapi.somee.com/api/animal/gen/?id=$idanimal'));
+        Uri.parse('https://www.vetapi.somee.com/api/animal/gen/?id=$idanimal'));
     print(response);
     final jsonData = List.from(jsonDecode(response.body));
 
@@ -178,7 +178,7 @@ class _listState extends State<gallosedit> {
     };
 
     final headers = {"content-type": "application/json;charset=UTF-8"};
-    await http.put(Uri.parse("https://mivetapi.somee.com/api/Animal"),
+    await http.put(Uri.parse("https://www.vetapi.somee.com/api/Animal"),
         headers: headers, body: jsonEncode(gallosput));
   }
 }
